@@ -3,7 +3,6 @@
     * Recommender Systems
         * Help users find relevant items (products, movies, news).
         * Many approaches assume static user preferences.
-        * 
     * Sequential Recommendation
         * Recommendations based on a user's interaction history.
         * Able to better capture dynamic user interests over time.
@@ -18,8 +17,8 @@
         * Most users and items have only a few interactions.
         * Difficult to learn robust user preference patterns from short sequences.
     * Learning Effective User Representations
-        * Representing the evolving user interest effectively is crucial but hard.
-        * Traditional methods might struggle to capture complex patterns or long-term dependencies.
+        * Deep models have many parameters, need lots of data.
+        * Next-item prediction alone can overfit and struggle to generalize.
 * Introduction: Contrastive Learning
     * Self-Supervised Learning
         * Learning from the data itself without human-created labels.
@@ -83,7 +82,31 @@
         * Non-sequential: BPR-MF, NCF
         * Sequential: GRU4Rec+, SASRec
         * Other: GC-SAN, S³-Rec_MIP
+    * CL4SRec outperforms all baselines across all metrics and datasets
+        * Particularly effective on sparser datasets
 * Evaluation: Influence of Hyper-Parameters
+    * All three augmentation methods improve performance over not using CL.
+    * The best augmentation method varies by dataset.
+    * The proportion of augmentation is also an important hyperparameter.
+    * A well-chosen λ is crucial.
 * Evaluation: Data Augmentation vs. Contrastive Learning
+    * Data Augmentation alone helps
+        * Applying augmentations during training improves over standard SASRec.
+    * Contrastive Learning on top helps more
+        * Full CL4SRec (with CL loss) further improves over just applying augmentations.
 * Evaluation: Does CL4SRec Achieve a Better User Representation?
+    * Experiment on Yelp Dataset
+        * The dataset includes social graph of friends.
+        * Compute the histogram of similarity between user representation of friends.
+        * Users who are friends have more similar sequence representations under CL4SRec than under SASRec.
+        * This suggests CL4SRec learns user representations that are "more meaningful".
 * Strengths and Weaknesses of the Paper
+    * Strengths
+        * First to successfully apply contrastive learning to sequential recommendation in this manner.
+        * Improves over state-of-the-art recommendation systems.
+        * Performs extensive evaluation to verify those claims.
+    * Weaknesses
+        * No theoretical analysis of why contrastive learning works well in this setting.
+        * Although they claim CL4SRec is "model-agnostic", they only evaluated with a transformer model.
+        * Only compare to baseline models with differently tuned hyper-parameters per dataset.
+* Quiz
