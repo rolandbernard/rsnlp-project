@@ -96,12 +96,12 @@
   \begin{items}
     \begin{oitem}{\litem}
       Recommender Systems \\
-      \sitem {\footnotesize Help users find relevant items (e.g., products, movies, news).} \\
-      \sitem {\footnotesize Many approaches assume static user preferences.}
+      \sitem {\footnotesize Help users discover relevant items (e.g., products, movies, news).} \\
+      \sitem {\footnotesize Many common approaches assume static user preferences.}
     \end{oitem}
     \begin{oitem}{\litem}
       Sequential Recommendation \\
-      \sitem {\footnotesize Recommendations based on a user's interaction history.} \\
+      \sitem {\footnotesize Recommendations based on a user's ordered interaction history.} \\
       \sitem {\footnotesize Able to better capture dynamic user interests over time.}
     \end{oitem}
   \end{items}
@@ -112,7 +112,7 @@
   \begin{items}
     \begin{oitem}{\litem}
       Formulation as a Prediction Task \\
-      \sitem {\footnotesize Given a historical interaction sequence of a user.} \\
+      \sitem {\footnotesize Given an ordered sequence of historical user interactions.} \\
       \sitem {\footnotesize Predict the next item the user will interact with.} \\
       \sitem {\footnotesize Very similar to the language modelling task in NLP.}
     \end{oitem}
@@ -124,11 +124,11 @@
   \begin{items}
     \begin{oitem}{\litem}
       Data Sparsity \\
-      \sitem {\footnotesize Most users and items have only a few interactions.} \\
-      \sitem {\footnotesize Difficult to learn robust user preference patterns from short sequences.}
+      \sitem {\footnotesize Most users and items have only few interactions.} \\
+      \sitem {\footnotesize Difficult to learn meaningful patterns from short sequences.}
     \end{oitem}
     \begin{oitem}{\litem}
-      Learning Effective User Representations \\
+      Learning Good User Representations \\
       \sitem {\footnotesize Deep models have many parameters, need lots of data.} \\
       \sitem {\footnotesize Next-item prediction alone can overfit and struggle to generalize.}
     \end{oitem}
@@ -140,8 +140,8 @@
   \begin{items}
     \begin{oitem}{\litem}
       Self-Supervised Learning \\
-      \sitem {\footnotesize Learning from the data itself without human-created labels.} \\
-      \sitem {\footnotesize Define some pretext task based on the raw data.} \\
+      \sitem {\footnotesize Learning from the data itself without explicit human-provided labels.} \\
+      \sitem {\footnotesize Define some pretext task based on the input data.} \\
       \sitem {\footnotesize Has been effective in other domain like CV and NLP.}
     \end{oitem}
     \begin{oitem}{\litem}
@@ -193,7 +193,7 @@
 \frametitle{CL4SRec --- Model Architecture}
   \begin{items}
     \begin{oitem}{\litem}
-      User Representation Model based on Transformer \\
+      User Representation Model based on Transformer (from SASRec) \\
       \sitem {\footnotesize Items and position embedding layer.} \\
       \sitem {\footnotesize Multi-head self-attention} \\
       \sitem {\footnotesize Position-wise feed-forward network} \\
@@ -228,7 +228,7 @@
     \end{oitem}
   \end{items}
 \end{frame}
-
+THE ELF FAN NICE EKE EMU UHF HAT TEA
 \begin{frame}
 \frametitle{Evaluation --- Experimental Setup}
   \begin{items}
@@ -238,7 +238,7 @@
       \sitem {\footnotesize Filtered to only users and items with at least 5 interactions.} \\
       \sitem {\footnotesize Only uses item identifiers, not ratings or review text.} \\
       \sitem {\footnotesize Interactions grouped by used and ordered by timestamp.} \\
-      \sitem {\footnotesize Last item for testing, Second-to-last item for validation.}
+      \sitem {\footnotesize Last item per user for testing, Second-to-last item for validation.}
     \end{oitem}
     \begin{oitem}{\litem}
       Evaluation Metrics \\
@@ -305,18 +305,24 @@
   \begin{items}
     \begin{oitem}{\litem}
       Strengths \\
-      \sitem {\footnotesize First to apply contrastive learning to sequential recommendation in this manner.} \\
-      \sitem {\footnotesize Improves over state-of-the-art recommendation systems.} \\
+      \sitem {\footnotesize Novel application of contrastive learning to sequential recommendation.} \\
+      \sitem {\footnotesize Achieves state-of-the-art results, especially on sparse data.} \\
       \sitem {\footnotesize Performs extensive evaluation to verify those claims.}
     \end{oitem}
     \begin{oitem}{\litem}
       Weaknesses \\
-      \sitem {\footnotesize No theoretical analysis of why contrastive learning works well in this setting.} \\
+      \sitem {\footnotesize More theoretical understanding of why CL works so well here could be beneficial.} \\
       \sitem {\footnotesize They claim CL4SRec is “model-agnostic", but only evaluated with a transformer model.} \\
-      \sitem {\footnotesize Only compare to baseline models with differently tuned hyperparameters per dataset.}
+      \sitem {\footnotesize Limited discussion about the rationale for the chosen augmentations.}
     \end{oitem}
   \end{items}
 \end{frame}
+
+{
+\setbeamercolor{background canvas}{bg=black}
+\begin{frame}[plain]{}
+\end{frame}
+}
 
 \begin{frame}
 \frametitle{Quiz}
