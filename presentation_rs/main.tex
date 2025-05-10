@@ -301,8 +301,7 @@
   \begin{items}
     \begin{oitem}{\litem}
       User Representation Encoder \\
-      \sitem {\footnotesize Takes a user's interaction sequence as input.} \\
-      \sitem {\footnotesize Produce a user representation as output.} \\
+      \sitem {\footnotesize Takes a user's interaction sequence as input, outputs a user representation.} \\
       \sitem {\footnotesize Can be implemented using different models.}
     \end{oitem}
     \begin{oitem}{\litem}
@@ -310,6 +309,66 @@
       \sitem {\footnotesize Recommendation Loss: Standard task of predicting next item in the sequence.} \\
       \sitem {\footnotesize Contrastive Loss: Compare augmented views from the original interaction sequences.}
     \end{oitem}
+    \begin{center}
+      \begin{tikzpicture}[
+        node distance=10mm,
+        item/.style={rectangle, draw=unibzblue, fill=unibzblue2, minimum size=5mm, font=\tiny},
+        encoder/.style={rectangle, draw=unibzblue, fill=unibzblue!30, minimum height=6mm, minimum width=15mm, text centered, font=\tiny},
+        arrow/.style={-Latex, thick, draw=unibzblue}
+      ]
+        \node[item] (w1) {$v_1$};
+        \node[item, right=1mm of w1] (w2) {$v_2$};
+        \node[right=1mm of w2, font=\Large] (dots) {$\mathbf{\dots}$};
+        \node[item, right=1mm of dots] (wt) {$v_t$};
+        \node[draw=none, inner sep=0mm, fit=(w1)(w2)(dots)(wt), name=historybox] {};
+        \node[font=\tiny, align=center, above=0mm of historybox] {Input Sequence};
+        \node[encoder, right=33mm of historybox] (enc) {$f(\cdot)$};
+        \node[item, right=8mm of enc] (rep) {$s_u$};
+        \node[font=\tiny, align=center, above=0mm of rep] {User repr.};
+        \draw[arrow] (historybox.east) -- (enc.west);
+        \draw[arrow] (enc.east) -- (rep.west);
+        
+        \node[item, below=10mm of wt, xshift=3mm] (w1a) {$\hat{v}_1$};
+        \node[item, right=1mm of w1a] (w2a) {$\hat{v}_2$};
+        \node[right=1mm of w2a, font=\Large] (dotsa) {$\mathbf{\dots}$};
+        \node[item, right=1mm of dotsa] (wta) {$\hat{v}_t$};
+        \node[draw=none, inner sep=0mm, fit=(w1a)(w2a)(dotsa)(wta), name=historyboxa] {};
+        \node[font=\tiny, align=center, above=0mm of historyboxa] {Augmented Sequences};
+        \node[encoder, right=8mm of historyboxa] (enca) {$f(\cdot)$};
+        \node[item, right=8mm of enca] (repa) {$s^{a_i}_u$};
+        \draw[arrow] (historyboxa.east) -- (enca.west);
+        \draw[arrow] (enca.east) -- (repa.west);
+
+        \node[item, below=7mm of w1a] (w1b) {$\tilde{v}_1$};
+        \node[item, right=1mm of w1b] (w2b) {$\tilde{v}_2$};
+        \node[right=1mm of w2b, font=\Large] (dotsb) {$\mathbf{\dots}$};
+        \node[item, right=1mm of dotsb] (wtb) {$\tilde{v}_t$};
+        \node[draw=none, inner sep=0mm, fit=(w1b)(w2b)(dotsb)(wtb), name=historyboxb] {};
+        \node[encoder, right=8mm of historyboxb] (encb) {$f(\cdot)$};
+        \node[item, right=8mm of encb] (repb) {$s^{a_j}_u$};
+        \draw[arrow] (historyboxb.east) -- (encb.west);
+        \draw[arrow] (encb.east) -- (repb.west);
+        
+        \node[draw=none, font=\tiny, left=1mm of historyboxa, yshift=2mm] (auga) {$a_i \in \mathcal{A}$};
+        \node[draw=none, font=\tiny, left=1mm of historyboxb, yshift=2mm] (augb) {$a_j \in \mathcal{A}$};
+        \draw[arrow] (historybox.south) |- (historyboxa.west);
+        \draw[arrow] (historybox.south) |- (historyboxb.west);
+
+        \node[right=4mm of rep, font=\tiny] (rloss) {$s_u \cdot v_{t + 1}$};
+        \draw[arrow] (rep.east) -- (rloss.west);
+        \node[right=4mm of $(repa.east)!0.5!(repb.east)$, font=\tiny] (closs) {$s^{a_i}_u \cdot a^{a_j}_u$};
+        \draw[arrow] (repa.east) -| (closs.north);
+        \draw[arrow] (repb.east) -| (closs.south);
+        
+        \node[right=4mm of rloss, font=\tiny] (rlab) {Recommendation Loss};
+        \draw[arrow] (rloss.east) -- (rlab.west);
+        \node[right=4mm of closs, font=\tiny] (clab) {Contrastive Loss};
+        \draw[arrow] (closs.east) -- (clab.west);
+
+        \node[draw=black, dashed, inner sep=1mm, fit=(enc)(enca)(encb), name=shared] {};
+        \node[above=0mm of shared, font=\tiny] {Shared Encoder};
+      \end{tikzpicture}
+    \end{center}
   \end{items}
 \end{frame}
 
@@ -356,12 +415,12 @@
       Recommendation Loss \\
       \sitem {\footnotesize Typically cross-entropy, predicting the true next item versus other items.} \\
       \sitem {\footnotesize Uses only a sampled softmax for efficiency.} \\
-      \sitem {\footnotesize $\mathcal{L}_\mathrm{main}(s_u) = - \log \frac{\exp \left( s^\top_u v^+ \right)}{\exp \left( s^\top_u v^+ \right) + \sum_{v^- \in V^-} \exp \left( s^\top_u v^- \right)}$}
+      \sitem {\footnotesize $\mathcal{L}_\mathrm{main}(s_u) = - \log \frac{\exp \left( s_u \cdot v^+ \right)}{\exp \left( s_u \cdot v^+ \right) + \sum_{v^- \in V^-} \exp \left( s_u \cdot v^- \right)}$}
     \end{oitem}
     \begin{oitem}{\litem}
       Contrastive Loss \\
       \sitem {\footnotesize Aims to maximize similarity for positive pairs and minimize for negative pairs.} \\
-      \sitem {\footnotesize $\mathcal{L}_\mathrm{cl}\left( s^{a_i}_u, s^{a_j}_u \right) = - \log \frac{\exp \left( s^{a_i \top}_u s^{a_j}_u \right)}{\exp \left( s^{a_i \top}_u s^{a_j}_u \right) + \sum_{s^- \in S^-} \exp \left( s^{a_i \top}_u s^- \right)}$}
+      \sitem {\footnotesize $\mathcal{L}_\mathrm{cl}\left( s^{a_i}_u, s^{a_j}_u \right) = - \log \frac{\exp \left( s^{a_i}_u \cdot s^{a_j}_u \right)}{\exp \left( s^{a_i}_u \cdot s^{a_j}_u \right) + \sum_{s^- \in S^-} \exp \left( s^{a_i}_u \cdot s^- \right)}$}
     \end{oitem}
     \begin{oitem}{\litem}
       Multi-Task Learning \\
