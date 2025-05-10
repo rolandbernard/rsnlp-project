@@ -9,7 +9,7 @@
 \usepackage[scale = 0.75]{plex-mono}
 \usepackage{tikz, pgfplots, subcaption}
 \pgfplotsset{compat=1.18}
-\usetikzlibrary{fit, shapes.geometric, positioning, shapes.misc, calc, arrows.meta}
+\usetikzlibrary{fit, shapes.geometric, positioning, shapes.misc, calc, arrows.meta, patterns, backgrounds}
 
 \usefonttheme[onlymath]{serif}
 
@@ -22,6 +22,11 @@
 
 \definecolor{unibzblue}{HTML}{0086ec}
 \definecolor{unibzblue2}{HTML}{f0f8ff}
+\definecolor{itemcolor}{HTML}{87CEFA}
+\definecolor{usercolor}{HTML}{FFB6C1}
+\definecolor{arrowcolor}{HTML}{4682B4}
+\definecolor{highlightcolor}{HTML}{FFD700}
+\definecolor{maskcolor}{HTML}{D3D3D3}
 
 \setbeamercolor{outerbox}{fg=black,bg=unibzblue2}
 \setbeamercolor{innerbox}{fg=white,bg=unibzblue}
@@ -99,11 +104,51 @@
       \sitem {\footnotesize Help users discover relevant items (e.g., products, movies, news).} \\
       \sitem {\footnotesize Many common approaches assume static user preferences.}
     \end{oitem}
+    \begin{center}
+      \vspace*{-3mm}
+      \begin{tikzpicture}[
+        node distance=10mm and 15mm,
+        item/.style={rectangle, draw, draw=unibzblue, fill=unibzblue2, minimum height=7mm, minimum width=9mm, font=\scriptsize},
+        user/.style={circle, draw=unibzblue, fill=unibzblue2, minimum size=0.8cm, font=\Large},
+        arrow/.style={-Latex, thick, draw=unibzblue},
+        item_group/.style={rectangle, inner sep=2mm}
+      ]
+        \node[user] (user) {\faUser};
+        \node[right=15mm of user, font=\scriptsize, text width=30mm, text centered] (rs_label) {Recommender System};
+        \begin{scope}[node distance=3mm]
+          \node[item, right=15mm of rs_label] (item1) {\faFilm};
+          \node[item, right=of item1] (item2) {\faNewspaper};
+          \node[item, right=of item2] (item3) {\faShoppingCart};
+          \node[right=3mm of item3, color=unibzblue, font=\Large] (thumb) {\faThumbsUp};
+        \end{scope}
+        \draw[arrow] (user.east) -- (rs_label.west);
+        \draw[arrow] (rs_label.east) -- (item1.west);
+      \end{tikzpicture}
+    \end{center}
+    \vspace*{3mm}
     \begin{oitem}{\litem}
       Sequential Recommendation \\
       \sitem {\footnotesize Recommendations based on a user's ordered interaction history.} \\
       \sitem {\footnotesize Able to better capture dynamic user interests over time.}
     \end{oitem}
+    \begin{center}
+      \vspace*{-4mm}
+      \begin{tikzpicture}[
+        item/.style={rectangle, draw=unibzblue, fill=unibzblue2, minimum size=7mm, font=\scriptsize, text centered},
+        arrow/.style={-Latex, thick, draw=unibzblue}
+      ]
+        \node[font=\Large] (user) at (0,0) {\faUser};
+        \node[right=1mm of user, font=\scriptsize] (label) {Interaction History:};
+        \node[item, right=1mm of label] (i1) {Shoes};
+        \node[item, right=5mm of i1] (i2) {Socks};
+        \node[item, right=5mm of i2] (i3) {?};
+        \node[item, right=13mm of i3, fill=unibzblue!30] (rec) {Shorts!};
+        \node[above=1mm of rec, font=\tiny] {Recommendation};
+        \draw[arrow] (i1.east) -- (i2.west);
+        \draw[arrow] (i2.east) -- (i3.west);
+        \draw[arrow,dashed] (i3.east) -- (rec.west) node[midway, above, font=\tiny]{Predicts};
+      \end{tikzpicture}
+    \end{center}
   \end{items}
 \end{frame}
 
@@ -116,6 +161,44 @@
       \sitem {\footnotesize Predict the next item the user will interact with.} \\
       \sitem {\footnotesize Very similar to the language modelling task in NLP.}
     \end{oitem}
+    \begin{center}
+      \begin{tikzpicture}[
+        block/.style={rectangle, draw=unibzblue, fill=unibzblue2, minimum height=6mm, minimum width=6mm, font=\scriptsize},
+        arrow/.style={-Latex, thick, draw=unibzblue},
+        probbox/.style={draw=none, minimum height=4mm, font=\tiny, align=left},
+        bar/.style={fill=unibzblue!75},
+        label/.style={font=\tiny, anchor=east}
+      ]
+        \node[block] (w1) {$v_1$};
+        \node[block, right=1mm of w1] (w2) {$v_2$};
+        \node[right=1mm of w2, font=\Large] (dots) {$\mathbf{\dots}$};
+        \node[block, right=1mm of dots] (wt) {$v_t$};
+        \node[draw=none, inner sep=0mm, fit=(w1)(w2)(dots)(wt), name=historybox] {};
+        \node[font=\tiny, align=center, above=1mm of historybox] {User History:};
+
+        \node[block, right=8mm of wt, fill=unibzblue!30] (wtplus1) {$v_{t+1}$?};
+        \node[draw=none, inner sep=0mm, fit=(wtplus1), name=predictbox] {};
+        \node[font=\tiny, align=center, above=1mm of predictbox] {Predict:};
+
+        \draw[arrow] (wt.east) -- (wtplus1.west);
+
+        \foreach \i/\label/\prob in {
+          1/{$v_{t+1}^{(1)}$}/2cm,
+          2/{$v_{t+1}^{(2)}$}/3.5cm,
+          3/{$v_{t+1}^{(3)}$}/1.2cm,
+          4/{$v_{t+1}^{(4)}$}/0.8cm,
+          5/{$v_{t+1}^{(5)}$}/1.6cm
+        } {
+          \node[label] (lab\i) at ([xshift=2.5cm, yshift=1.5cm-\i*0.6cm]wtplus1) {\label};
+          \node[probbox, right=1mm of lab\i, minimum width=4cm, anchor=west] (bar\i) {};
+          \fill[bar] ([yshift=-2mm]bar\i.west) rectangle ++(\prob, 4mm);
+        }
+        \node[font=\Large] at ([yshift=-0.6cm]bar5.west) {$\mathbf{\vdots}$};
+
+        \node[draw=none, inner sep=0mm, fit=(bar1)(bar2)(bar3)(bar4)(bar5), name=probboxgroup] {};
+        \node[font=\tiny, align=center, above=1mm of probboxgroup] {Next Item Probabilities:};
+      \end{tikzpicture}
+    \end{center}
   \end{items}
 \end{frame}
 
@@ -228,7 +311,7 @@
     \end{oitem}
   \end{items}
 \end{frame}
-THE ELF FAN NICE EKE EMU UHF HAT TEA
+
 \begin{frame}
 \frametitle{Evaluation --- Experimental Setup}
   \begin{items}
