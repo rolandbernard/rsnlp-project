@@ -9,7 +9,7 @@
 \usepackage[scale = 0.75]{plex-mono}
 \usepackage{tikz, pgfplots, subcaption}
 \pgfplotsset{compat=1.18}
-\usetikzlibrary{fit, shapes.geometric, positioning, shapes.misc, calc, arrows.meta, patterns, backgrounds}
+\usetikzlibrary{fit, shapes.geometric, positioning, shapes.misc, calc, arrows.meta, patterns, backgrounds, decorations.markings}
 
 \usefonttheme[onlymath]{serif}
 
@@ -215,6 +215,29 @@
       \sitem {\footnotesize Deep models have many parameters, need lots of data.} \\
       \sitem {\footnotesize Next-item prediction alone can overfit and struggle to generalize.}
     \end{oitem}
+    \begin{center}
+      \begin{tikzpicture}[every node/.style={font=\scriptsize}]
+        \def\numrows{5}
+        \def\numcols{10}
+        \node[above, anchor=south west, xshift=3mm, yshift=4mm] {Items};
+        \node[rotate=90, above, anchor=south east, xshift=-4mm, yshift=3mm] {Users};
+        \foreach \j in {1,...,\numrows} { \node at (-2mm, -\j*4mm+2mm) {$U_{\j}$}; }
+        \foreach \i in {1,...,\numcols} { \node at (\i*4mm-2mm, 2mm) {$I_{\i}$}; }
+        \foreach \y in {1,...,\numrows} {
+          \foreach \x in {1,...,\numcols} {
+            \draw[draw=unibzblue, fill=unibzblue2] (\x*4mm-4mm,-\y*4mm+4mm) rectangle (\x*4mm,-\y*4mm);
+          }
+        }
+        \fill[unibzblue] (0mm,-4mm) rectangle (4mm,-8mm); 
+        \fill[unibzblue] (8mm,0mm) rectangle (12mm,-4mm);
+        \fill[unibzblue] (16mm,-8mm) rectangle (20mm,-12mm);
+        \fill[unibzblue] (28mm,-12mm) rectangle (32mm,-16mm);
+
+        \draw[decorate, decoration={brace, amplitude=2mm}]
+          ({\numcols*4mm+1mm}, 0mm) -- ++(0mm, -\numrows*4mm) 
+          node[midway, right=2mm, text width=30mm, align=left, font=\scriptsize] {Sparse data typical for recommender systems};
+      \end{tikzpicture}
+    \end{center}
   \end{items}
 \end{frame}
 
@@ -234,6 +257,42 @@
       \sitem {\footnotesize Positive pair: Two augmented versions from same input.} \\
       \sitem {\footnotesize Negative pair: Augmented versions of different inputs.}
     \end{oitem}
+    \begin{center}
+      \begin{tikzpicture}[
+        item/.style={draw=unibzblue, fill=gray!10, minimum size=8mm, font=\Large},
+        arrow/.style={-Latex, thick, draw=unibzblue},
+        item_aug/.style={item, draw=unibzblue, fill=unibzblue2},
+        item_neg/.style={item, draw=unibzblue, fill=red!20},
+        arrow_attract/.style={Latex-Latex, thick, draw=green!60!black,},
+        arrow_repel/.style={Latex-Latex, thick, draw=red}
+      ]
+        \node[item] (orig1) at (0,0) {\faCarSide};
+        \node[item_aug, right=10mm of orig1, rotate=15] (aug1a) {\faCarSide};
+        \node[item_aug, above=7mm of aug1a, xscale=0.7] (aug1b) {\faCarSide};
+        \node[above=0mm of orig1, font=\tiny] {Orig.};
+        \node[left=1mm of aug1b, font=\tiny] {Aug.};
+        \draw[arrow] (orig1.east) -- (aug1a.west);
+        \draw[arrow] (orig1.east) -- (aug1b.west);
+
+        \node[item, right=80mm of orig1] (orig2) {\faBicycle};
+        \node[item_aug, left=10mm of orig2, rotate=-10] (aug2a) {\faBicycle};
+        \node[item_aug, above=7mm of aug2a, yscale=0.7] (aug2b) {\faBicycle};
+        \node[above=0mm of orig2, font=\tiny] {Orig.};
+        \node[right=1mm of aug2b, font=\tiny] {Aug.};
+        \draw[arrow] (orig2.west) -- (aug2a.east);
+        \draw[arrow] (orig2.west) -- (aug2b.east);
+      
+        \draw[arrow_repel] (aug2a.west) -- (aug1b.east);
+        \draw[arrow_repel] (aug2b.west) -- (aug1b.east);
+        \draw[arrow_repel] (aug2a.west) -- (aug1a.east);
+        \draw[arrow_repel] (aug2b.west) -- (aug1a.east);
+        \node[above=0mm of $(aug2b)!0.5!(aug1b)$, font=\tiny, color=red] {Negative Pair};
+
+        \draw[arrow_attract] (aug1a.north) -- (aug1b.south);
+        \draw[arrow_attract] (aug2a.north) -- (aug2b.south);
+        \node[right=0mm of $(aug1a)!0.5!(aug1b)$, font=\tiny, color=green!60!black] {Positive Pair};
+      \end{tikzpicture}
+    \end{center}
   \end{items}
 \end{frame}
 
