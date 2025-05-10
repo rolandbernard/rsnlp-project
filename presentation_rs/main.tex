@@ -91,11 +91,152 @@
 \frame{\titlepage}
 
 \begin{frame}
-\frametitle{Introduction}
+\frametitle{Introduction --- Sequential Recommendation}
+  \begin{items}
+    \begin{oitem}{\litem}
+      Recommender Systems \\
+      \sitem {\footnotesize Help users find relevant items (e.g., products, movies, news).} \\
+      \sitem {\footnotesize Many approaches assume static user preferences.}
+    \end{oitem}
+    \begin{oitem}{\litem}
+      Sequential Recommendation \\
+      \sitem {\footnotesize Recommendations based on a user's interaction history.} \\
+      \sitem {\footnotesize Able to better capture dynamic user interests over time.}
+    \end{oitem}
+  \end{items}
+\end{frame}
+
+\begin{frame}
+\frametitle{Introduction --- Sequential Recommendation}
+  \begin{items}
+    \begin{oitem}{\litem}
+      Formulation as a prediction task \\
+      \sitem {\footnotesize Given a historical interaction sequence of a user.} \\
+      \sitem {\footnotesize Predict the next item the user will interact with.} \\
+      \sitem {\footnotesize Very similar to the language modelling task in NLP.}
+    \end{oitem}
+  \end{items}
+\end{frame}
+
+\begin{frame}
+\frametitle{Introduction --- Challenges in Sequential Recommendation}
+  \begin{items}
+    \begin{oitem}{\litem}
+      Data Sparsity \\
+      \sitem {\footnotesize Most users and items have only a few interactions.} \\
+      \sitem {\footnotesize Difficult to learn robust user preference patterns from short sequences.}
+    \end{oitem}
+    \begin{oitem}{\litem}
+      Learning Effective User Representations \\
+      \sitem {\footnotesize Deep models have many parameters, need lots of data.} \\
+      \sitem {\footnotesize Next-item prediction alone can overfit and struggle to generalize.}
+    \end{oitem}
+  \end{items}
+\end{frame}
+
+\begin{frame}
+\frametitle{Introduction --- Contrastive Learning}
+  \begin{items}
+    \begin{oitem}{\litem}
+      Self-Supervised Learning \\
+      \sitem {\footnotesize Learning from the data itself without human-created labels.} \\
+      \sitem {\footnotesize Define some pretext task based on the raw data.} \\
+      \sitem {\footnotesize Has been effective in other domain like CV and NLP.}
+    \end{oitem}
+    \begin{oitem}{\litem}
+      Contrastive Learning \\
+      \sitem {\footnotesize The pretext task is to compare different instances.} \\
+      \sitem {\footnotesize The model learns to tell similar things apart from dissimilar things.} \\
+      \sitem {\footnotesize Positive pair: Two augmented versions from same input.} \\
+      \sitem {\footnotesize Negative pair: Augmented versions of different inputs.}
+    \end{oitem}
+  \end{items}
+\end{frame}
+
+\begin{frame}
+\frametitle{CL4SRec --- The Proposed Framework}
+  \begin{items}
+    \begin{oitem}{\litem}
+      User Representation Encoder \\
+      \sitem {\footnotesize Takes a user's interaction sequence as input.} \\
+      \sitem {\footnotesize Produce a user representation as output.} \\
+      \sitem {\footnotesize Can be implemented using different models.}
+    \end{oitem}
+    \begin{oitem}{\litem}
+      Encoder Shared Between Two Learning Objectives \\
+      \sitem {\footnotesize Recommendation Loss: Standard task of predicting next item in the sequence.} \\
+      \sitem {\footnotesize Contrastive Loss: Compare augmented views from the original interaction sequences.}
+    \end{oitem}
+  \end{items}
+\end{frame}
+
+\begin{frame}
+\frametitle{CL4SRec --- Data Augmentation Strategies}
+  \begin{items}
+    \begin{oitem}{\litem}
+      Item Crop 
+      \sitem {\footnotesize Randomly select a continuous subsequence of the sequence.}
+    \end{oitem}
+    \begin{oitem}{\litem}
+      Item Mask 
+      \sitem {\footnotesize Randomly replace some items with a special mask item.}
+    \end{oitem}
+    \begin{oitem}{\litem}
+      Item Reorder 
+      \sitem {\footnotesize Randomly shuffle items within a continuous subsequence of the sequence.}
+    \end{oitem}
+  \end{items}
+\end{frame}
+
+\begin{frame}
+\frametitle{CL4SRec --- Model Architecture}
+  \begin{items}
+    \begin{oitem}{\litem}
+      User Representation Model based on Transformer \\
+      \sitem {\footnotesize Items and position embedding layer.} \\
+      \sitem {\footnotesize Multi-head self-attention} \\
+      \sitem {\footnotesize Position-wise feed-forward network} \\
+      \sitem {\footnotesize Layer normalization and dropout for regularization}
+    \end{oitem}
+    \begin{oitem}{\litem}
+      Next item probability prediction \\
+      \sitem {\footnotesize Based on dot product between user and item representation.} \\
+      \sitem {\footnotesize The items closest to the user representation are predicted.}
+    \end{oitem}
+  \end{items}
+\end{frame}
+
+\begin{frame}
+\frametitle{CL4SRec --- Training Process}
+\end{frame}
+
+\begin{frame}
+\frametitle{Evaluation --- Experimental Setup}
+\end{frame}
+
+\begin{frame}
+\frametitle{Evaluation --- Comparison With Other Methods}
+\end{frame}
+
+\begin{frame}
+\frametitle{Evaluation --- Influence of Hyper-Parameters}
+\end{frame}
+
+\begin{frame}
+\frametitle{Evaluation --- Data Augmentation vs. Contrastive Learning}
+\end{frame}
+
+\begin{frame}
+\frametitle{Evaluation --- Better User Representations}
+\end{frame}
+
+\begin{frame}
+\frametitle{Evaluation --- Strengths and Weaknesses of the Paper}
 \end{frame}
 
 \begin{frame}
 \frametitle{Quiz}
+  \vspace*{-5mm}
   \begin{narrowpage}
     \centering
     \large
