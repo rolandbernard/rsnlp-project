@@ -3,13 +3,13 @@
 \usepackage{graphicx}
 \usepackage[english]{babel}
 \usepackage[T1]{fontenc}
-\usepackage{csquotes, xcolor, xspace, changepage, setspace, listings}
+\usepackage{csquotes, xcolor, xspace, changepage, setspace, listings, multirow}
 \usepackage{roboto}
 \usepackage{fontawesome5}
 \usepackage[scale = 0.75]{plex-mono}
 \usepackage{tikz, pgfplots, subcaption}
 \pgfplotsset{compat=1.18}
-\usetikzlibrary{fit, shapes.geometric, positioning, shapes.misc, calc, arrows.meta, patterns, backgrounds, decorations.markings}
+\usetikzlibrary{fit, shapes.geometric, positioning, shapes.misc, calc, arrows.meta, patterns, backgrounds, decorations.markings, decorations.pathreplacing}
 
 \usefonttheme[onlymath]{serif}
 
@@ -91,6 +91,8 @@
   \end{beamercolorbox}
   \vfill
 }
+
+\renewcommand{\arraystretch}{1.2}
 
 \begin{document}
 
@@ -301,51 +303,57 @@
   \begin{items}
     \begin{oitem}{\litem}
       User Representation Encoder \\
-      \sitem {\footnotesize Takes a user's interaction sequence as input, outputs a user representation.} \\
-      \sitem {\footnotesize Can be implemented using different models.}
+      \sitem {\footnotesize Takes a user's interaction sequence as input, outputs a user representation.}
     \end{oitem}
     \begin{oitem}{\litem}
-      Encoder Shared Between Two Learning Objectives \\
+      Encoder shared between two learning objectives. \\
       \sitem {\footnotesize Recommendation Loss: Standard task of predicting next item in the sequence.} \\
       \sitem {\footnotesize Contrastive Loss: Compare augmented views from the original interaction sequences.}
     \end{oitem}
     \begin{center}
+      \vspace*{3mm}
       \begin{tikzpicture}[
         item/.style={rectangle, draw, fill=unibzblue2, minimum size=5mm, font=\tiny},
-        encoder/.style={rectangle, draw, fill=unibzblue!30, minimum height=6mm, minimum width=15mm, text centered, font=\tiny},
+        encoder/.style={rectangle, draw, fill=unibzblue!30, minimum height=5mm, minimum width=5mm, text centered, font=\tiny},
         arrow/.style={-Latex, thick, draw}
       ]
         \node[item] (w1) {$v_1$};
         \node[item, right=1mm of w1] (w2) {$v_2$};
-        \node[right=1mm of w2, font=\Large] (dots) {$\mathbf{\dots}$};
+        \node[right=1mm of w2, font=\large] (dots) {$\mathbf{\dots}$};
         \node[item, right=1mm of dots] (wt) {$v_t$};
         \node[draw=none, inner sep=0mm, fit=(w1)(w2)(dots)(wt), name=historybox] {};
         \node[font=\tiny, align=center, above=0mm of historybox] {Input Sequence};
-        \node[encoder, right=33mm of historybox] (enc) {$f(\cdot)$};
+        \node[encoder, right=30mm of historybox] (emb) {embedding};
+        \node[encoder, right=5mm of emb] (enc) {$f(\cdot)$};
         \node[item, right=8mm of enc] (rep) {$s_u$};
         \node[font=\tiny, align=center, above=0mm of rep] {User repr.};
-        \draw[arrow] (historybox.east) -- (enc.west);
+        \draw[arrow] (historybox.east) -- (emb.west);
+        \draw[arrow] (emb.east) -- (enc.west);
         \draw[arrow] (enc.east) -- (rep.west);
         
-        \node[item, below=10mm of wt, xshift=3mm] (w1a) {$\hat{v}_1$};
+        \node[item, below=7mm of wt, xshift=3mm] (w1a) {$\hat{v}_1$};
         \node[item, right=1mm of w1a] (w2a) {$\hat{v}_2$};
-        \node[right=1mm of w2a, font=\Large] (dotsa) {$\mathbf{\dots}$};
+        \node[right=1mm of w2a, font=\large] (dotsa) {$\mathbf{\dots}$};
         \node[item, right=1mm of dotsa] (wta) {$\hat{v}_t$};
         \node[draw=none, inner sep=0mm, fit=(w1a)(w2a)(dotsa)(wta), name=historyboxa] {};
         \node[font=\tiny, align=center, above=0mm of historyboxa] {Augmented Sequences};
-        \node[encoder, right=8mm of historyboxa] (enca) {$f(\cdot)$};
+        \node[encoder, below=7mm of emb] (emba) {embedding};
+        \node[encoder, below=7mm of enc] (enca) {$f(\cdot)$};
         \node[item, right=8mm of enca] (repa) {$s^{a_i}_u$};
-        \draw[arrow] (historyboxa.east) -- (enca.west);
+        \draw[arrow] (historyboxa.east) -- (emba.west);
+        \draw[arrow] (emba.east) -- (enca.west);
         \draw[arrow] (enca.east) -- (repa.west);
 
         \node[item, below=7mm of w1a] (w1b) {$\tilde{v}_1$};
         \node[item, right=1mm of w1b] (w2b) {$\tilde{v}_2$};
-        \node[right=1mm of w2b, font=\Large] (dotsb) {$\mathbf{\dots}$};
+        \node[right=1mm of w2b, font=\large] (dotsb) {$\mathbf{\dots}$};
         \node[item, right=1mm of dotsb] (wtb) {$\tilde{v}_t$};
         \node[draw=none, inner sep=0mm, fit=(w1b)(w2b)(dotsb)(wtb), name=historyboxb] {};
-        \node[encoder, right=8mm of historyboxb] (encb) {$f(\cdot)$};
+        \node[encoder, below=7mm of emba] (embb) {embedding};
+        \node[encoder, below=7mm of enca] (encb) {$f(\cdot)$};
         \node[item, right=8mm of encb] (repb) {$s^{a_j}_u$};
-        \draw[arrow] (historyboxb.east) -- (encb.west);
+        \draw[arrow] (historyboxb.east) -- (embb.west);
+        \draw[arrow] (embb.east) -- (encb.west);
         \draw[arrow] (encb.east) -- (repb.west);
         
         \node[draw=none, font=\tiny, left=1mm of historyboxa, yshift=2mm] (auga) {$a_i \in \mathcal{A}$};
@@ -355,16 +363,21 @@
 
         \node[right=4mm of rep, font=\tiny] (rloss) {$s_u \cdot v_{t + 1}$};
         \draw[arrow] (rep.east) -- (rloss.west);
+        \node[item, right=1mm of wt, yshift=10.5mm] (wtp1) {$v_{t + 1}$};
+        \node[encoder, above=5.5mm of emb] (embt) {embedding};
+        \draw[arrow] (wtp1.east) -- (embt.west);
+        \draw[arrow] (embt.east) -| ([xshift=1mm]rloss.north);
+
         \node[right=4mm of $(repa.east)!0.5!(repb.east)$, font=\tiny] (closs) {$s^{a_i}_u \cdot a^{a_j}_u$};
-        \draw[arrow] (repa.east) -| (closs.north);
-        \draw[arrow] (repb.east) -| (closs.south);
+        \draw[arrow] (repa.east) -| ([xshift=-3mm]closs.north);
+        \draw[arrow] (repb.east) -| ([xshift=2mm]closs.south);
         
         \node[right=4mm of rloss, font=\tiny] (rlab) {Recommendation Loss};
         \draw[arrow] (rloss.east) -- (rlab.west);
         \node[right=4mm of closs, font=\tiny] (clab) {Contrastive Loss};
         \draw[arrow] (closs.east) -- (clab.west);
 
-        \node[draw=black, dashed, inner sep=1mm, fit=(enc)(enca)(encb), name=shared] {};
+        \node[draw=black, dashed, inner sep=1mm, fit=(emb)(enc)(enca)(encb), name=shared] {};
         \node[above=0mm of shared, font=\tiny] {Shared Encoder};
       \end{tikzpicture}
     \end{center}
@@ -399,6 +412,9 @@
         \node[item, right=1mm of w3a] (w4a) {$v_4$};
         \node[item, right=1mm of w4a] (w5a) {$v_5$};
         \node[item, right=1mm of w5a] (w6a) {$v_6$};
+        \node[minimum size=5mm, right=1mm of w6a] (wg0) {};
+        \node[minimum size=5mm, right=1mm of wg0] (wg1) {};
+        \node[minimum size=5mm, right=1mm of wg1] (wg2) {};
 
         \draw[arrow, shorten < = 2mm, shorten > = 2mm] (w7.east) -- (w3a.west);
       \end{tikzpicture}
@@ -428,10 +444,10 @@
 
         \node[item, right=25mm of w7] (w1a) {$v_1$};
         \node[item, right=1mm of w1a] (w2a) {$v_2$};
-        \node[item, right=1mm of w2a, fill=unibzblue!30] (w3a) {$m$};
+        \node[item, right=1mm of w2a] (w3a) {$m$};
         \node[item, right=1mm of w3a] (w4a) {$v_4$};
         \node[item, right=1mm of w4a] (w5a) {$v_5$};
-        \node[item, right=1mm of w5a, fill=unibzblue!30] (w6a) {$m$};
+        \node[item, right=1mm of w5a] (w6a) {$m$};
         \node[item, right=1mm of w6a] (w7a) {$v_7$};
 
         \node[draw=black, dashed, inner sep=0.5mm, fit=(w3a)] {};
@@ -483,17 +499,11 @@
 \frametitle{CL4SRec --- Model Architecture}
   \begin{items}
     \begin{oitem}{\litem}
-      User Representation Model based on Transformer (from SASRec) \\
-      \sitem {\footnotesize Items and position embedding layer.} \\
-      \sitem {\footnotesize Multi-head self-attention} \\
-      \sitem {\footnotesize Position-wise feed-forward network} \\
-      \sitem {\footnotesize Layer normalization and dropout for regularization}
+      User Representation Model using a Transformer (based on SASRec)
     \end{oitem}
-    \begin{oitem}{\litem}
-      Next Item Probability Prediction \\
-      \sitem {\footnotesize Based on dot product between user and item representation.} \\
-      \sitem {\footnotesize The items closest to the user representation are predicted.}
-    \end{oitem}
+    \begin{center}
+        \includegraphics[width=0.75\textwidth]{figures/sasrec.png}
+    \end{center}
   \end{items}
 \end{frame}
 
@@ -530,6 +540,19 @@
       \sitem {\footnotesize Interactions grouped by used and ordered by timestamp.} \\
       \sitem {\footnotesize Last item per user for testing, Second-to-last item for validation.}
     \end{oitem}
+    \begin{center}
+      \scriptsize
+      \begin{tabular}{lccccc}
+        \hline
+        Dataset & \#users & \#items & \#actions & avg.length & density \\
+        \hline
+        Beauty   & 22,363 & 12,101 & 198,502   & 8.8   & 0.07\% \\
+        Sports   & 25,598 & 18,357 & 296,337   & 8.3   & 0.05\% \\
+        Yelp     & 30,983 & 29,227 & 321,087   & 10.3  & 0.04\% \\
+        ML-1M    & 6,040  & 3,953  & 1,000,209 & 165.6 & 4.19\% \\
+        \hline
+      \end{tabular}
+    \end{center}
     \begin{oitem}{\litem}
       Evaluation Metrics \\
       \sitem {\footnotesize HR@k: Ratio the correct item appears in the top-k recommendations.} \\
@@ -548,6 +571,33 @@
       \sitem {\footnotesize Sequential: GRU4Rec+, SASRec} \quad\quad\quad\quad\quad
       \sitem {\footnotesize Other: GC-SAN, S³-Rec\_MIP}
     \end{oitem}
+    \begin{center}
+      \vspace*{-1mm}
+      \hspace*{-7.5mm}
+      \tiny
+      \begin{tabular}{llccccccccc}
+        \hline
+        Dataset & Metric & Pop & BPR-MF & NCF & GRU4Rec+ & SASRec & GC-SAN & S3-RecMIP & CL4SRec & Improv. \\
+        \hline
+        \multirow{2}{*}{Beauty}
+        & HR@10    & 0.0114 & 0.0299 & 0.0293 & 0.0399 & \underline{0.0630} & 0.0444 & 0.0566 & \textbf{0.0681} & 8.10\% \\
+        & NDCG@10  & 0.0053 & 0.0122 & 0.0130 & 0.0201 & \underline{0.0276} & 0.0225 & 0.0270 & \textbf{0.0299} & 8.33\% \\
+        \hline
+        \multirow{2}{*}{Sports}
+        & HR@10    & 0.0090 & 0.0188 & 0.0219 & 0.0259 & \underline{0.0328} & 0.0266 & 0.0298 & \textbf{0.0387} & 17.98\% \\
+        & NDCG@10  & 0.0051 & 0.0083 & 0.0100 & 0.0131 & \underline{0.0148} & 0.0139 & 0.0146 & \textbf{0.0171} & 15.54\% \\
+        \hline
+        \multirow{2}{*}{Yelp}
+        & HR@10    & 0.0095 & 0.0273 & 0.0267 & 0.0276 & 0.0300 & 0.0267 & \underline{0.0313} & \textbf{0.0349} & 11.50\% \\
+        & NDCG@10  & 0.0049 & 0.0121 & 0.0119 & 0.0131 & 0.0131 & 0.0136 & \underline{0.0157} & \textbf{0.0171} & 8.92\% \\
+        \hline
+        \multirow{2}{*}{ML-1M}
+        & HR@10    & 0.0162 & 0.0354 & 0.0313 & 0.1806 & 0.1902 & 0.1906 & \underline{0.1952} & \textbf{0.1975} & 1.18\% \\
+        & NDCG@10  & 0.0079 & 0.0158 & 0.0143 & 0.0835 & 0.0904 & 0.0895 & \underline{0.0917} & \textbf{0.0928} & 1.20\% \\
+        \hline
+      \end{tabular}
+      \vspace*{3mm}
+    \end{center}
     \begin{oitem}{\litem}
       CL4SRec outperforms all baselines across all metrics and datasets. \\
       \sitem {\footnotesize Particularly effective on sparser datasets.}
