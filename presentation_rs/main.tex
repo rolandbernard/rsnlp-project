@@ -108,9 +108,9 @@
       \vspace*{-3mm}
       \begin{tikzpicture}[
         node distance=10mm and 15mm,
-        item/.style={rectangle, draw, draw=unibzblue, fill=unibzblue2, minimum height=7mm, minimum width=9mm, font=\scriptsize},
-        user/.style={circle, draw=unibzblue, fill=unibzblue2, minimum size=0.8cm, font=\Large},
-        arrow/.style={-Latex, thick, draw=unibzblue},
+        item/.style={rectangle, draw, fill=unibzblue2, minimum height=7mm, minimum width=9mm, font=\scriptsize},
+        user/.style={circle, fill=unibzblue2, draw, minimum size=0.8cm, font=\Large},
+        arrow/.style={-Latex, thick},
         item_group/.style={rectangle, inner sep=2mm}
       ]
         \node[user] (user) {\faUser};
@@ -134,8 +134,8 @@
     \begin{center}
       \vspace*{-4mm}
       \begin{tikzpicture}[
-        item/.style={rectangle, draw=unibzblue, fill=unibzblue2, minimum size=7mm, font=\scriptsize, text centered},
-        arrow/.style={-Latex, thick, draw=unibzblue}
+        item/.style={rectangle, draw, fill=unibzblue2, minimum size=7mm, font=\scriptsize, text centered},
+        arrow/.style={-Latex, thick, draw}
       ]
         \node[font=\Large] (user) at (0,0) {\faUser};
         \node[right=1mm of user, font=\scriptsize] (label) {Interaction History:};
@@ -163,10 +163,10 @@
     \end{oitem}
     \begin{center}
       \begin{tikzpicture}[
-        block/.style={rectangle, draw=unibzblue, fill=unibzblue2, minimum height=6mm, minimum width=6mm, font=\scriptsize},
-        arrow/.style={-Latex, thick, draw=unibzblue},
+        block/.style={rectangle, draw, fill=unibzblue2, minimum height=6mm, minimum width=6mm, font=\scriptsize},
+        arrow/.style={-Latex, thick, draw},
         probbox/.style={draw=none, minimum height=4mm, font=\tiny, align=left},
-        bar/.style={fill=unibzblue!75},
+        bar/.style={fill=unibzblue},
         label/.style={font=\tiny, anchor=east}
       ]
         \node[block] (w1) {$v_1$};
@@ -225,7 +225,7 @@
         \foreach \i in {1,...,\numcols} { \node at (\i*4mm-2mm, 2mm) {$I_{\i}$}; }
         \foreach \y in {1,...,\numrows} {
           \foreach \x in {1,...,\numcols} {
-            \draw[draw=unibzblue, fill=unibzblue2] (\x*4mm-4mm,-\y*4mm+4mm) rectangle (\x*4mm,-\y*4mm);
+            \draw[draw, fill=unibzblue2] (\x*4mm-4mm,-\y*4mm+4mm) rectangle (\x*4mm,-\y*4mm);
           }
         }
         \fill[unibzblue] (0mm,-4mm) rectangle (4mm,-8mm); 
@@ -259,10 +259,10 @@
     \end{oitem}
     \begin{center}
       \begin{tikzpicture}[
-        item/.style={draw=unibzblue, fill=gray!10, minimum size=8mm, font=\Large},
-        arrow/.style={-Latex, thick, draw=unibzblue},
-        item_aug/.style={item, draw=unibzblue, fill=unibzblue2},
-        item_neg/.style={item, draw=unibzblue, fill=red!20},
+        item/.style={draw, fill=gray!10, minimum size=8mm, font=\Large},
+        arrow/.style={-Latex, thick, draw},
+        item_aug/.style={item, draw, fill=unibzblue2},
+        item_neg/.style={item, draw, fill=red!20},
         arrow_attract/.style={Latex-Latex, thick, draw=green!60!black,},
         arrow_repel/.style={Latex-Latex, thick, draw=red}
       ]
@@ -311,10 +311,9 @@
     \end{oitem}
     \begin{center}
       \begin{tikzpicture}[
-        node distance=10mm,
-        item/.style={rectangle, draw=unibzblue, fill=unibzblue2, minimum size=5mm, font=\tiny},
-        encoder/.style={rectangle, draw=unibzblue, fill=unibzblue!30, minimum height=6mm, minimum width=15mm, text centered, font=\tiny},
-        arrow/.style={-Latex, thick, draw=unibzblue}
+        item/.style={rectangle, draw, fill=unibzblue2, minimum size=5mm, font=\tiny},
+        encoder/.style={rectangle, draw, fill=unibzblue!30, minimum height=6mm, minimum width=15mm, text centered, font=\tiny},
+        arrow/.style={-Latex, thick, draw}
       ]
         \node[item] (w1) {$v_1$};
         \node[item, right=1mm of w1] (w2) {$v_2$};
@@ -379,14 +378,104 @@
       Item Crop \,
       \sitem {\footnotesize Randomly select a continuous subsequence of the sequence.}
     \end{oitem}
+    \begin{center}
+      \vspace*{-4mm}
+      \begin{tikzpicture}[
+        item/.style={rectangle, draw, fill=unibzblue2, minimum size=5mm, font=\tiny},
+        arrow/.style={-Latex, thick, draw}
+      ]
+        \node[item] (w1) {$v_1$};
+        \node[item, right=1mm of w1] (w2) {$v_2$};
+        \node[item, right=1mm of w2] (w3) {$v_3$};
+        \node[item, right=1mm of w3] (w4) {$v_4$};
+        \node[item, right=1mm of w4] (w5) {$v_5$};
+        \node[item, right=1mm of w5] (w6) {$v_6$};
+        \node[item, right=1mm of w6] (w7) {$v_7$};
+        
+        \node[draw=black, dashed, inner sep=0.5mm, fit=(w3)(w4)(w5)(w6), name=selected] {};
+        \node[above=0mm of selected, font=\tiny] {$\eta = 0.6$};
+
+        \node[item, right=25mm of w7] (w3a) {$v_3$};
+        \node[item, right=1mm of w3a] (w4a) {$v_4$};
+        \node[item, right=1mm of w4a] (w5a) {$v_5$};
+        \node[item, right=1mm of w5a] (w6a) {$v_6$};
+
+        \draw[arrow, shorten < = 2mm, shorten > = 2mm] (w7.east) -- (w3a.west);
+      \end{tikzpicture}
+      \vspace*{2mm}
+    \end{center}
     \begin{oitem}{\litem}
       Item Mask \,
       \sitem {\footnotesize Randomly replace some items with a special mask item.}
     \end{oitem}
+    \begin{center}
+      \vspace*{-4mm}
+      \begin{tikzpicture}[
+        item/.style={rectangle, draw, fill=unibzblue2, minimum size=5mm, font=\tiny},
+        arrow/.style={-Latex, thick, draw}
+      ]
+        \node[item] (w1) {$v_1$};
+        \node[item, right=1mm of w1] (w2) {$v_2$};
+        \node[item, right=1mm of w2] (w3) {$v_3$};
+        \node[item, right=1mm of w3] (w4) {$v_4$};
+        \node[item, right=1mm of w4] (w5) {$v_5$};
+        \node[item, right=1mm of w5] (w6) {$v_6$};
+        \node[item, right=1mm of w6] (w7) {$v_7$};
+        
+        \node[draw=black, dashed, inner sep=0.5mm, fit=(w3), name=selected1] {};
+        \node[draw=black, dashed, inner sep=0.5mm, fit=(w6), name=selected2] {};
+        \node[above=0mm of $(selected1.north)!0.5!(selected2.north)$, font=\tiny] {$\gamma = 0.3$};
+
+        \node[item, right=25mm of w7] (w1a) {$v_1$};
+        \node[item, right=1mm of w1a] (w2a) {$v_2$};
+        \node[item, right=1mm of w2a, fill=unibzblue!30] (w3a) {$m$};
+        \node[item, right=1mm of w3a] (w4a) {$v_4$};
+        \node[item, right=1mm of w4a] (w5a) {$v_5$};
+        \node[item, right=1mm of w5a, fill=unibzblue!30] (w6a) {$m$};
+        \node[item, right=1mm of w6a] (w7a) {$v_7$};
+
+        \node[draw=black, dashed, inner sep=0.5mm, fit=(w3a)] {};
+        \node[draw=black, dashed, inner sep=0.5mm, fit=(w6a)] {};
+
+        \draw[arrow, shorten < = 2mm, shorten > = 2mm] (w7.east) -- (w1a.west);
+      \end{tikzpicture}
+      \vspace*{2mm}
+    \end{center}
     \begin{oitem}{\litem}
       Item Reorder \,
       \sitem {\footnotesize Randomly shuffle items within a continuous subsequence.}
     \end{oitem}
+    \begin{center}
+      \vspace*{-4mm}
+      \begin{tikzpicture}[
+        item/.style={rectangle, draw, fill=unibzblue2, minimum size=5mm, font=\tiny},
+        arrow/.style={-Latex, thick, draw}
+      ]
+        \node[item] (w1) {$v_1$};
+        \node[item, right=1mm of w1] (w2) {$v_2$};
+        \node[item, right=1mm of w2] (w3) {$v_3$};
+        \node[item, right=1mm of w3] (w4) {$v_4$};
+        \node[item, right=1mm of w4] (w5) {$v_5$};
+        \node[item, right=1mm of w5] (w6) {$v_6$};
+        \node[item, right=1mm of w6] (w7) {$v_7$};
+        
+        \node[draw=black, dashed, inner sep=0.5mm, fit=(w3)(w4)(w5)(w6), name=selected] {};
+        \node[above=0mm of selected, font=\tiny] {$\beta = 0.6$};
+
+        \node[item, right=25mm of w7] (w1a) {$v_1$};
+        \node[item, right=1mm of w1a] (w2a) {$v_2$};
+        \node[item, right=1mm of w2a] (w5a) {$v_5$};
+        \node[item, right=1mm of w5a] (w3a) {$v_3$};
+        \node[item, right=1mm of w3a] (w6a) {$v_6$};
+        \node[item, right=1mm of w6a] (w4a) {$v_4$};
+        \node[item, right=1mm of w4a] (w7a) {$v_7$};
+
+        \node[draw=black, dashed, inner sep=0.5mm, fit=(w3a)(w4a)(w5a)(w6a)] {};
+
+        \draw[arrow, shorten < = 2mm, shorten > = 2mm] (w7.east) -- (w1a.west);
+      \end{tikzpicture}
+      \vspace*{2mm}
+    \end{center}
   \end{items}
 \end{frame}
 
