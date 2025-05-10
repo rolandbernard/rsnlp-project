@@ -4,13 +4,14 @@
 \usepackage[english]{babel}
 \usepackage[T1]{fontenc}
 \usepackage{csquotes, xcolor, xspace, changepage, setspace, listings}
-\usepackage{libertinus}
 \usepackage{roboto}
 \usepackage{fontawesome5}
 \usepackage[scale = 0.75]{plex-mono}
 \usepackage{tikz, pgfplots, subcaption}
 \pgfplotsset{compat=1.18}
 \usetikzlibrary{fit, shapes.geometric, positioning, shapes.misc, calc, arrows.meta}
+
+\usefonttheme[onlymath]{serif}
 
 \usepackage[backend=bibtex,style=authoryear]{biblatex}
 \addbibresource{biblio.bib}
@@ -110,7 +111,7 @@
 \frametitle{Introduction --- Sequential Recommendation}
   \begin{items}
     \begin{oitem}{\litem}
-      Formulation as a prediction task \\
+      Formulation as a Prediction Task \\
       \sitem {\footnotesize Given a historical interaction sequence of a user.} \\
       \sitem {\footnotesize Predict the next item the user will interact with.} \\
       \sitem {\footnotesize Very similar to the language modelling task in NLP.}
@@ -174,16 +175,16 @@
 \frametitle{CL4SRec --- Data Augmentation Strategies}
   \begin{items}
     \begin{oitem}{\litem}
-      Item Crop 
+      Item Crop \,
       \sitem {\footnotesize Randomly select a continuous subsequence of the sequence.}
     \end{oitem}
     \begin{oitem}{\litem}
-      Item Mask 
+      Item Mask \,
       \sitem {\footnotesize Randomly replace some items with a special mask item.}
     \end{oitem}
     \begin{oitem}{\litem}
-      Item Reorder 
-      \sitem {\footnotesize Randomly shuffle items within a continuous subsequence of the sequence.}
+      Item Reorder \,
+      \sitem {\footnotesize Randomly shuffle items within a continuous subsequence.}
     \end{oitem}
   \end{items}
 \end{frame}
@@ -199,7 +200,7 @@
       \sitem {\footnotesize Layer normalization and dropout for regularization}
     \end{oitem}
     \begin{oitem}{\litem}
-      Next item probability prediction \\
+      Next Item Probability Prediction \\
       \sitem {\footnotesize Based on dot product between user and item representation.} \\
       \sitem {\footnotesize The items closest to the user representation are predicted.}
     \end{oitem}
@@ -208,30 +209,113 @@
 
 \begin{frame}
 \frametitle{CL4SRec --- Training Process}
+  \begin{items}
+    \begin{oitem}{\litem}
+      Recommendation Loss \\
+      \sitem {\footnotesize Typically cross-entropy, predicting the true next item versus other items.} \\
+      \sitem {\footnotesize Uses only a sampled softmax for efficiency.} \\
+      \sitem {\footnotesize $\mathcal{L}_\mathrm{main}(s_u) = - \log \frac{\exp \left( s^\top_u v^+ \right)}{\exp \left( s^\top_u v^+ \right) + \sum_{v^- \in V^-} \exp \left( s^\top_u v^- \right)}$}
+    \end{oitem}
+    \begin{oitem}{\litem}
+      Contrastive Loss \\
+      \sitem {\footnotesize Aims to maximize similarity for positive pairs and minimize for negative pairs.} \\
+      \sitem {\footnotesize $\mathcal{L}_\mathrm{cl}\left( s^{a_i}_u, s^{a_j}_u \right) = - \log \frac{\exp \left( s^{a_i \top}_u s^{a_j}_u \right)}{\exp \left( s^{a_i \top}_u s^{a_j}_u \right) + \sum_{s^- \in S^-} \exp \left( s^{a_i \top}_u s^- \right)}$}
+    \end{oitem}
+    \begin{oitem}{\litem}
+      Multi-Task Learning \\
+      \sitem {\footnotesize The model is trained to optimize both tasks simultaneously.} \\
+      \sitem {\footnotesize $\mathcal{L}_\mathrm{total} = \mathcal{L}_\mathrm{main} + \lambda \mathcal{L}_\mathrm{cl}$}
+    \end{oitem}
+  \end{items}
 \end{frame}
 
 \begin{frame}
 \frametitle{Evaluation --- Experimental Setup}
+  \begin{items}
+    \begin{oitem}{\litem}
+      Four public real-world datasets. \\
+      \sitem {\footnotesize Amazon Beauty, Amazon Sports, Yelp, MovieLens-1M.} \\
+      \sitem {\footnotesize Filtered to only users and items with at least 5 interactions.} \\
+      \sitem {\footnotesize Only uses item identifiers, not ratings or review text.} \\
+      \sitem {\footnotesize Interactions grouped by used and ordered by timestamp.} \\
+      \sitem {\footnotesize Last item for testing, Second-to-last item for validation.}
+    \end{oitem}
+    \begin{oitem}{\litem}
+      Evaluation Metrics \\
+      \sitem {\footnotesize HR@k: Ratio the correct item appears in the top-k recommendations.} \\
+      \sitem {\footnotesize NDCG@k: Consider also the rank in the top-k at which the correct item appear.}
+    \end{oitem}
+  \end{items}
 \end{frame}
 
 \begin{frame}
 \frametitle{Evaluation --- Comparison With Other Methods}
+  \begin{items}
+    \begin{oitem}{\litem}
+      Baselines for Comparison \\
+      \sitem {\footnotesize Non-personalized: Popularity-based} \quad\quad\quad\:
+      \sitem {\footnotesize Non-sequential: BPR-MF, NCF} \\
+      \sitem {\footnotesize Sequential: GRU4Rec+, SASRec} \quad\quad\quad\quad\quad
+      \sitem {\footnotesize Other: GC-SAN, S³-Rec\_MIP}
+    \end{oitem}
+    \begin{oitem}{\litem}
+      CL4SRec outperforms all baselines across all metrics and datasets. \\
+      \sitem {\footnotesize Particularly effective on sparser datasets.}
+    \end{oitem}
+  \end{items}
 \end{frame}
 
 \begin{frame}
 \frametitle{Evaluation --- Influence of Hyper-Parameters}
+  \begin{items}
+    \begin{oitem}{\litem}
+      \sitem {\footnotesize All three augmentation methods improve performance over not using CL.} \\
+      \sitem {\footnotesize The best augmentation method varies by dataset.} \\
+      \sitem {\footnotesize The proportion of augmentation is also an important hyperparameter.} \\
+      \sitem {\footnotesize A well-chosen λ is crucial.}
+    \end{oitem}
+  \end{items}
 \end{frame}
 
 \begin{frame}
 \frametitle{Evaluation --- Data Augmentation vs. Contrastive Learning}
+  \begin{items}
+    \begin{oitem}{\litem}
+      Full CL4SRec further improves over just applying augmentations. \\
+      \sitem {\footnotesize Data Augmentation alone helps over standard SASRec.} \\
+      \sitem {\footnotesize Contrastive Learning on top helps more.}
+    \end{oitem}
+  \end{items}
 \end{frame}
 
 \begin{frame}
 \frametitle{Evaluation --- Better User Representations}
+  \begin{items}
+    \begin{oitem}{\litem}
+      Experiment on Yelp dataset, which contains social graph of friends. \\
+      \sitem {\footnotesize Compute the histogram of similarities between user representation of friends.} \\
+      \sitem {\footnotesize Friends have more similar representations under CL4SRec than under SASRec.} \\
+      \sitem {\footnotesize Suggests CL4SRec learns user representations that are “more meaningful”.}
+    \end{oitem}
+  \end{items}
 \end{frame}
 
 \begin{frame}
 \frametitle{Evaluation --- Strengths and Weaknesses of the Paper}
+  \begin{items}
+    \begin{oitem}{\litem}
+      Strengths \\
+      \sitem {\footnotesize First to apply contrastive learning to sequential recommendation in this manner.} \\
+      \sitem {\footnotesize Improves over state-of-the-art recommendation systems.} \\
+      \sitem {\footnotesize Performs extensive evaluation to verify those claims.}
+    \end{oitem}
+    \begin{oitem}{\litem}
+      Weaknesses \\
+      \sitem {\footnotesize No theoretical analysis of why contrastive learning works well in this setting.} \\
+      \sitem {\footnotesize They claim CL4SRec is “model-agnostic", but only evaluated with a transformer model.} \\
+      \sitem {\footnotesize Only compare to baseline models with differently tuned hyperparameters per dataset.}
+    \end{oitem}
+  \end{items}
 \end{frame}
 
 \begin{frame}
