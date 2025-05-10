@@ -71,7 +71,12 @@
 \newlength{\offsetpage}
 \newenvironment{narrowpage}[1][3mm]{
   \setlength{\offsetpage}{#1}
-  \begin{adjustwidth}{\offsetpage}{-\offsetpage}
+  \begin{adjustwidth}{\offsetpage}{\offsetpage}
+}{
+  \end{adjustwidth}
+}
+\newenvironment{widepage}{
+  \begin{adjustwidth}{-10mm}{-10mm}
 }{
   \end{adjustwidth}
 }
@@ -85,7 +90,7 @@
   \vspace*{2mm}
   \begin{beamercolorbox}[rounded=false,colsep=#1]{outerbox}
     \parbox[t]{2mm}{\centering#2}\parbox[t]{2mm}{\ }%
-    \begin{minipage}[t]{\textwidth}
+    \begin{minipage}[t]{\linewidth}
 }{
     \end{minipage}
   \end{beamercolorbox}
@@ -502,7 +507,7 @@
       User Representation Model using a Transformer (based on SASRec)
     \end{oitem}
     \begin{center}
-        \includegraphics[width=0.75\textwidth]{figures/sasrec.png}
+      \includegraphics[width=0.85\linewidth]{figures/sasrec.png}
     \end{center}
   \end{items}
 \end{frame}
@@ -580,20 +585,20 @@
         Dataset & Metric & Pop & BPR-MF & NCF & GRU4Rec+ & SASRec & GC-SAN & S3-RecMIP & CL4SRec & Improv. \\
         \hline
         \multirow{2}{*}{Beauty}
-        & HR@10    & 0.0114 & 0.0299 & 0.0293 & 0.0399 & \underline{0.0630} & 0.0444 & 0.0566 & \textbf{0.0681} & 8.10\% \\
-        & NDCG@10  & 0.0053 & 0.0122 & 0.0130 & 0.0201 & \underline{0.0276} & 0.0225 & 0.0270 & \textbf{0.0299} & 8.33\% \\
+        & HR@20    & 0.0195 & 0.0524 & 0.0519 & 0.0637 & \underline{0.1007} & 0.0698 & 0.0905 & \textbf{0.1056} & 4.87\% \\
+        & NDCG@20  & 0.0073 & 0.0179 & 0.0187 & 0.0261 & \underline{0.0371} & 0.0289 & 0.0355 & \textbf{0.0394} & 6.20\% \\
         \hline
         \multirow{2}{*}{Sports}
-        & HR@10    & 0.0090 & 0.0188 & 0.0219 & 0.0259 & \underline{0.0328} & 0.0266 & 0.0298 & \textbf{0.0387} & 17.98\% \\
-        & NDCG@10  & 0.0051 & 0.0083 & 0.0100 & 0.0131 & \underline{0.0148} & 0.0139 & 0.0146 & \textbf{0.0171} & 15.54\% \\
+        & HR@20    & 0.0149 & 0.0337 & 0.0373 & 0.0423 & \underline{0.0541} & 0.0414 & 0.0506 & \textbf{0.0595} & 9.98\% \\
+        & NDCG@20  & 0.0066 & 0.0121 & 0.0139 & 0.0172 & \underline{0.0201} & 0.0177 & 0.0199 & \textbf{0.0228} & 13.43\% \\
         \hline
         \multirow{2}{*}{Yelp}
-        & HR@10    & 0.0095 & 0.0273 & 0.0267 & 0.0276 & 0.0300 & 0.0267 & \underline{0.0313} & \textbf{0.0349} & 11.50\% \\
-        & NDCG@10  & 0.0049 & 0.0121 & 0.0119 & 0.0131 & 0.0131 & 0.0136 & \underline{0.0157} & \textbf{0.0171} & 8.92\% \\
+        & HR@20    & 0.0160 & 0.0500 & 0.0467 & 0.0484 & \underline{0.0529} & 0.0452 & 0.0519 & \textbf{0.0598} & 13.04\% \\
+        & NDCG@20  & 0.0065 & 0.0178 & 0.0172 & 0.0183 & 0.0188 & 0.0182 & \underline{0.0209} & \textbf{0.0233} & 11.48\% \\
         \hline
         \multirow{2}{*}{ML-1M}
-        & HR@10    & 0.0162 & 0.0354 & 0.0313 & 0.1806 & 0.1902 & 0.1906 & \underline{0.1952} & \textbf{0.1975} & 1.18\% \\
-        & NDCG@10  & 0.0079 & 0.0158 & 0.0143 & 0.0835 & 0.0904 & 0.0895 & \underline{0.0917} & \textbf{0.0928} & 1.20\% \\
+        & HR@20    & 0.0402 & 0.0712 & 0.0641 & 0.2892 & \underline{0.3124} & 0.3104 & 0.3114 & \textbf{0.3174} & 1.60\% \\
+        & NDCG@20  & 0.0139 & 0.0248 & 0.0225 & 0.1108 & \underline{0.1211} & 0.1197 & 0.1204 & \textbf{0.1230} & 1.57\% \\
         \hline
       \end{tabular}
       \vspace*{3mm}
@@ -614,12 +619,39 @@
       \sitem {\footnotesize The proportion of augmentation is also an important hyperparameter.} \\
       \sitem {\footnotesize A well-chosen λ is crucial.}
     \end{oitem}
+    \begin{widepage}
+      \begin{center}
+        \includegraphics[width=0.475\linewidth]{figures/augparams1.png}
+        \includegraphics[width=0.475\linewidth]{figures/augparams2.png}
+      \end{center}
+    \end{widepage}
   \end{items}
 \end{frame}
 
 \begin{frame}
 \frametitle{Evaluation --- Data Augmentation vs. Contrastive Learning}
   \begin{items}
+    \begin{oitem}{\litem}
+      Tested SASRec but with augmenting training data.
+    \end{oitem}
+    \begin{center}
+      \scriptsize
+      \begin{tabular}{llcccc}
+        \hline
+        Aug.Method & Model & \multicolumn{2}{c}{Sports} & \multicolumn{2}{c}{Yelp} \\
+        &    & HR@20 & NDCG@20 & HR@20 & NDCG@20 \\
+        \hline
+        None    & SASRec      & 0.0541 & 0.0201 & 0.0529 & 0.0188 \\
+        Crop    & SASRec\textsubscript{aug}   & 0.0546 & 0.0205 & 0.0576 & 0.0222 \\
+                & CL4SRec     & 0.0596 & 0.0223 & 0.0598 & 0.0233 \\
+        Mask    & SASRec\textsubscript{aug}   & 0.0513 & 0.0198 & 0.0546 & 0.0206 \\
+                & CL4SRec     & 0.0595 & 0.0228 & 0.0572 & 0.0219 \\
+        Reorder & SASRec\textsubscript{aug}   & 0.0547 & 0.0208 & 0.0523 & 0.0203 \\
+                & CL4SRec     & 0.0560 & 0.0213 & 0.0565 & 0.0222 \\
+        \hline
+      \end{tabular}
+      \vspace*{3mm}
+    \end{center}
     \begin{oitem}{\litem}
       Full CL4SRec further improves over just applying augmentations. \\
       \sitem {\footnotesize Data Augmentation alone helps over standard SASRec.} \\
@@ -637,11 +669,14 @@
       \sitem {\footnotesize Friends have more similar representations under CL4SRec than under SASRec.} \\
       \sitem {\footnotesize Suggests CL4SRec learns user representations that are “more meaningful”.}
     \end{oitem}
+    \begin{center}
+      \includegraphics[width=0.7\linewidth]{figures/friendsim.png}
+    \end{center}
   \end{items}
 \end{frame}
 
 \begin{frame}
-\frametitle{Evaluation --- Strengths and Weaknesses of the Paper}
+\frametitle{Strengths and Weaknesses of the Paper}
   \begin{items}
     \begin{oitem}{\litem}
       Strengths \\
@@ -649,12 +684,33 @@
       \sitem {\footnotesize Achieves state-of-the-art results, especially on sparse data.} \\
       \sitem {\footnotesize Performs extensive evaluation to verify those claims.}
     \end{oitem}
+    \begin{center}
+      \begin{tikzpicture}[
+        icon_style/.style={font=\Large, color=unibzblue, minimum width=8mm, text centered},
+        label_style/.style={font=\tiny, below=0.5mm, text width=15mm, align=center}
+      ]
+        \node[icon_style] (s1) at (0,0) {\faThumbsUp}; \node[label_style] at (s1.south) {Novel};
+        \node[icon_style] (s2) at (20mm,0) {\faBullseye}; \node[label_style] at (s2.south) {SOTA};
+        \node[icon_style] (s3) at (40mm,0) {\faSearchPlus}; \node[label_style] at (s3.south) {Extensive Eval};
+      \end{tikzpicture}
+    \end{center}
     \begin{oitem}{\litem}
       Weaknesses \\
       \sitem {\footnotesize More theoretical understanding of why CL works so well here could be beneficial.} \\
       \sitem {\footnotesize They claim CL4SRec is “model-agnostic", but only evaluated with a transformer model.} \\
       \sitem {\footnotesize Limited discussion about the rationale for the chosen augmentations.}
     \end{oitem}
+    \begin{center}
+      \begin{tikzpicture}[
+        icon_style/.style={font=\Large, color=unibzblue, minimum width=8mm, text centered},
+        label_style/.style={font=\tiny, below=0.5mm, text width=16mm, align=center}
+      ]
+        \node[icon_style] (w1) at (0,0) {\faQuestionCircle}; \node[label_style] at (w1.south) {Theory?};
+        \node[icon_style] (w2) at (22mm,0) {\faCogs}; \node[label_style] at (w2.south) {Model Agnostic?};
+        \node[icon_style] (w3) at (44mm,0) {\faLightbulb[regular]}; \node[label_style] at (w3.south) {Aug. Rationale?};
+        \node[font=\small, color=black, opacity=0.7] at (w3) {\bf ?}; 
+      \end{tikzpicture}
+    \end{center}
   \end{items}
 \end{frame}
 
@@ -675,7 +731,7 @@
   \vspace*{5mm}
   \begin{narrowpage}
     \centering
-    \includegraphics[width=0.5\textwidth]{figures/questions.png}
+    \includegraphics[width=0.5\linewidth]{figures/questions.png}
   \end{narrowpage}
 \end{frame}
 
