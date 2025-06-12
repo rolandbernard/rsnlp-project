@@ -2,7 +2,7 @@
 * The project is aimed at assessing to what extent the student has achieved the course learning outcomes related to: applying knowledge and understanding, making judgments, and communication skills.
 * Project evaluation criteria: clarity of the presentation, novelty of the problem and the solution, appropriateness of the methods, significance of the solution and capability to refer to the methods and techniques discussed in the course.
 * The project report must be submitted one week before the written exam.
-* Write your report in LaTeX, 4 pages max, you can use the ACL latex style
+* Write your report in LaTeX, 4-5 pages max, you can use the ACL latex style
   * Possible structure:
     * Introduction/Motivation
     * Related Work

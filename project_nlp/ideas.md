@@ -10,3 +10,5 @@ e.g. Letter Boxed
 > Do not write anything else.
 OR
 > Feel free to show your working out, but ensure you end out answer with the result formatted correctly.
+
+Decision: I implement and evaluate LLMs on Deal or No Deal.

@@ -24,7 +24,9 @@ callgrind.out.*
 *.lof
 *.lot
 *.bbl
+*.bbl-*
 *.bcf
+*.bcf-*
 *.blg
 *.xmpi
 *.run.xml
