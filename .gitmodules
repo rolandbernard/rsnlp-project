@@ -1,0 +1,3 @@
+[submodule "project_nlp/clemgame-dond"]
+	path = project_nlp/clemgame-dond
+	url = https://github.com/rolandbernard/clemgame-dond
