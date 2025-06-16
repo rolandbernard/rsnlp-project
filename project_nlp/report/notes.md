@@ -100,11 +100,13 @@ Report of ~5000 words.
         * Identify and general trend with regards to models, e.g., with respect to model release or parameter count.
     * Qualitative Analysis
         * Provide some example dialogue snippets that illustrate common mistakes.
+            * Immediately making a proposal without discussing with the other player.
             * Making a proposal contradicting the previously stated intentions.
             * Players making the proposal for the wrong player. 
             * Players pretending to be the game master.
             * Not using the indicated proposal syntax.
         * Describe general behaviour of different LLMs.
+        * In general the LLMs don't really seem to have any strategy. e.g. in the cooperative setting it should be fairly obvious that the best thing is to give each item to the player valuing it the most, but the LLMs mostly still try to find compromises.
     * Overall Performance Summary
         * High level overview of how each of the LLM performed across the different metrics.
         * Highlight some of the models that performed surprisingly poorly or well.
