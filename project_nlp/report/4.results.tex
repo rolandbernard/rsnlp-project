@@ -6,14 +6,6 @@ In this section of the report, the results of the experiments will be discussed.
 
 \begin{figure}[ht]
   \centering
-  \includegraphics[width=\linewidth]{figures/playedquality.pdf}
-  \caption{Summarized evaluation results for each model. The y-axis indicates the percentage of played, i.e., not aborted, games. The x-axis represents the average quality score obtained when considering only played games.}
-  \label{fig:playedquality}
-\end{figure}
-
-
-\begin{figure}[ht]
-  \centering
   \includegraphics[width=\linewidth]{figures/outcome.pdf}
   \caption{Percentage of games that ended with a specific game outcome during the evaluation of different models. All results for the two game modes and three languages have been averaged together for this plot.}
   \label{fig:outcome}
@@ -21,7 +13,7 @@ In this section of the report, the results of the experiments will be discussed.
 
 
 \begin{table*}[ht]
-  \scriptsize
+  \footnotesize
   \begin{widepage}
     \centering
     \addtolength{\tabcolsep}{-0.2em}
@@ -34,42 +26,36 @@ In this section of the report, the results of the experiments will be discussed.
        &  & \% Agreement & 7 & \textbf{78} & 74 & 48 & 47 & 32 & 0 & 70 & 61 & 35 \\
        &  & \% Optimal & 0 & 30 & \textbf{51} & 36 & 24 & 10 & 0 & 30 & 39 & 18 \\
        &  & Quality Score & 0 & 61 & \textbf{70} & 44 & 42 & 24 & 0 & 57 & 53 & 30 \\
-       &  & Avg. \# Messages & 3.3 & 7.9 & 7.1 & 4.3 & 6.9 & 7 & 10 & 6.6 & 8.5 & 6.5 \\
        \hline
       semi & de & Clemscore & 9 & 43 & 59 & 41 & 8 & 9 & -- & 26 & \textbf{60} & 21 \\
        &  & \% Played & 66 & 81 & 98 & \textbf{100} & 89 & 82 & -- & 74 & \textbf{100} & 92 \\
        &  & \% Agreement & 16 & 68 & \textbf{70} & 43 & 12 & 12 & -- & 41 & 69 & 30 \\
        &  & \% Optimal & 6 & 32 & 35 & 37 & 4 & 7 & -- & 22 & \textbf{43} & 9 \\
        &  & Quality Score & 14 & 53 & \textbf{61} & 41 & 9 & 11 & -- & 36 & 60 & 23 \\
-       &  & Avg. \# Messages & 3.3 & 7 & 6.3 & 4.1 & 8.6 & 6.2 & -- & 6.9 & 6 & 5.2 \\
       \hline
       semi & it & Clemscore & 4 & 50 & 49 & 17 & 15 & 15 & -- & 19 & \textbf{64} & 26 \\
        &  & \% Played & 51 & 93 & 95 & \textbf{100} & 96 & 90 & -- & 66 & \textbf{100} & 98 \\
        &  & \% Agreement & 13 & 62 & 59 & 20 & 19 & 20 & -- & 33 & \textbf{72} & 35 \\
        &  & \% Optimal & 0 & 36 & 34 & 9 & 10 & 9 & -- & 12 & \textbf{48} & 8 \\
        &  & Quality Score & 7 & 53 & 51 & 17 & 16 & 17 & -- & 29 & \textbf{64} & 26 \\
-       &  & Avg. \# Messages & 3.8 & 7.4 & 6 & 5.1 & 6.7 & 6.1 & -- & 5.7 & 6.2 & 5.4 \\
       \hline
       coop & en & Clemscore & 3 & \textbf{74} & 65 & 57 & 31 & 25 & 29 & 48 & 26 & 26 \\
        &  & \% Played & 56 & \textbf{100} & \textbf{100} & \textbf{100} & 92 & 90 & 60 & 78 & 77 & 86 \\
        &  & \% Agreement & 11 & \textbf{83} & 67 & 60 & 37 & 31 & 60 & 74 & 39 & 37 \\
        &  & \% Optimal & 0 & 36 & \textbf{43} & 44 & 11 & 11 & 0 & 18 & 22 & 12 \\
        &  & Quality Score & 6 & \textbf{74} & 65 & 57 & 33 & 27 & 48 & 62 & 35 & 31 \\
-       &  & Avg. \# Messages & 2.9 & 7.8 & 6.7 & 4.7 & 7.1 & 6.4 & 9.1 & 6.7 & 8.9 & 6 \\
       \hline
       coop & de & Clemscore & 9 & 37 & 65 & 51 & 16 & 15 & 27 & 20 & \textbf{66} & 9 \\
        &  & \% Played & 86 & 63 & 98 & 98 & 96 & 76 & 86 & 60 & \textbf{100} & 86 \\
        &  & \% Agreement & 16 & 67 & 70 & 58 & 21 & 26 & 44 & 40 & \textbf{71} & 14 \\
        &  & \% Optimal & 3 & 22 & \textbf{44} & 31 & 8 & 0 & 2 & 23 & 39 & 0 \\
        &  & Quality Score & 11 & 59 & \textbf{66} & 52 & 17 & 20 & 32 & 33 & 66 & 10 \\
-       &  & Avg. \# Messages & 2.2 & 6.6 & 6.6 & 4.1 & 10.1 & 6 & 9.1 & 6.2 & 6 & 5.5 \\
       \hline
       coop & it & Clemscore & 3 & \textbf{84} & 50 & 39 & 15 & 10 & 24 & 26 & 46 & 24 \\
        &  & \% Played & 35 & \textbf{100} & 89 & \textbf{100} & 98 & 94 & 90 & 62 & \textbf{100} & \textbf{100} \\
        &  & \% Agreement & 12 & \textbf{92} & 62 & 46 & 20 & 15 & 39 & 52 & 53 & 30 \\
        &  & \% Optimal & 0 & \textbf{50} & 31 & 22 & 0 & 4 & 2 & 10 & 27 & 2 \\
        &  & Quality Score & 7 & \textbf{84} & 57 & 39 & 16 & 11 & 27 & 42 & 46 & 24 \\
-       &  & Avg. \# Messages & 7.2 & 7.4 & 6.2 & 4.5 & 7 & 6.4 & 9.7 & 5.9 & 6.4 & 5.1 \\
       \hline
     \end{tabular}
   \end{widepage}
@@ -84,5 +70,13 @@ In this section of the report, the results of the experiments will be discussed.
 
 
 \subsection{Overall Performance Summary}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\linewidth]{figures/playedquality.pdf}
+  \caption{Summarized evaluation results for each model. The y-axis indicates the percentage of played, i.e., not aborted, games. The x-axis represents the average quality score obtained when considering only played games.}
+  \label{fig:playedquality}
+\end{figure}
+
 
 

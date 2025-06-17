@@ -62,13 +62,51 @@ To assess the performance of LLMs in the DoND game, it is necessary to define th
 
 The first metric that will be considered is simply the percentage of played games, i.e., the percentage of games that have not been aborted due to rule violations. Games are aborted by the game master if either a malformed proposal is submitted, or no proposal is submitted after one is requested. This metric serves as the primary measure of the LLM's ability to follow the instructions.
 
-Every \inlinecode{clemgame} should also define a metric specifying how well the game was played. For the cooperative game mode, assessing the quality of agreement is straightforward. Since both players try to optimize for the same total score of both players, it is simply possible to use the ratio between the achieved total score to the maximum possible total score for that game instance, $\mathit{Quality}_\mathit{coop} = \frac{\mathit{Score}_A + \mathit{Score}_B}{\max ( \mathit{Score}_A' + \mathit{Score}_B' )}$. This gives us a value between $0$ and $1$, and we scale it to between $0$ and $100$ as is customary for \inlinecode{clembench}.
+Every \inlinecode{clemgame} should also define a metric specifying how well the game was played. For the cooperative game mode, assessing the quality of agreement is straightforward. Since both players try to optimize for the same total score of both players, it is simply possible to use the ratio between the achieved total score to the maximum possible total score for that game instance, $\mathit{Quality}_\mathit{coop} = \frac{\mathit{Score}_A + \mathit{Score}_B}{\max ( \mathit{Score}_A' + \mathit{Score}_B' )}$. This gives us a value between $0$ and $1$.
 
-Evaluating the game in the semi-competitive setting is slightly more involved, as it requires finding a single score that jointly reflects the quality of the outcome for both players. For this, a metric based on Pareto efficiency has been used in this project. The score is defined as one minus the normalized maximum possible Pareto improvement, $\mathit{Quality}_\mathit{semi} = 1 - \frac{\mathit{Maximum Pareto Improvement}}{\max ( \mathit{Score}_i' )}$. The maximum possible Pareto improvement is the largest amount the score of one player could be increased without decreasing the score of the other. We normalize using the maximum possible score a single player can obtain, to again get a value between $0$ and $1$.
+Evaluating the game in the semi-competitive setting is slightly more involved, as it requires finding a single score that jointly reflects the quality of the outcome for both players. For this, a metric based on Pareto efficiency has been used in this project. The score is defined as one minus the normalized maximum possible Pareto improvement, $\mathit{Quality}_\mathit{semi} = 1 - \frac{\mathit{Maximum Pareto Improvement}}{\max ( \mathit{Score}_i' )}$. The maximum possible Pareto improvement is the largest amount the score of one player could be increased without decreasing the score of the other. Normalization is performed by dividing by the maximum possible score a single player can obtain, to obtain again a value between $0$ and $1$.
 
 As one additional metric for closer analysis of the game results this project employs also the percentage of games that end with Pareto optimal outcomes. An outcome is Pareto optimal if no players score can be increased without also decreasing the score of the other player. For the cooperative setting, an outcome is Pareto optimal if it archives the maximum score. Note that in these cases our quality score will be $1$. 
 
 
 \subsection{Experimental Setup}
 
+All experiments were conducted using the \inlinecode{clembench} framework and its command-line tool, \inlinecode{clem}. In line with standard practice in similar dialogue game evaluations \cite{chalamalasetti-etal-2023-clembench,srivastava2022beyond} to ensure deterministic and comparable results, all LLM API calls were made with greedy sampling, i.e., temperature set to 0. Each model was evaluated using self-play for every instance, i.e., playing against a copy of itself.
+
+
+\subsubsection{LLM Selection}
+
+For the evaluation in this project, a diverse range of 10 recent and prominent LLMs have been selected. To ensure a broad comparison, the selection includes both commercial closed-weight models and open-weight models. The models and their key attributes are summarized in \cref{tab:llms}.
+
+\begin{table}[ht]
+  \centering
+  \footnotesize
+  \begin{tabular}{llccc}
+    \hline
+    Model & Version & P & C & O \\
+    \hline
+    GPT 3.5 & turbo-0125 & - & 16k & No \\
+    GPT 4 & turbo-2024-04-09 & - & 128k & No \\
+    GPT 4.1 & 2025-04-14 & - & 1000k & No \\
+    o4-mini & 2025-04-16 & - & 200k & No \\
+    Gemini 2.0 Flash & 001 & - & 1000k & No \\
+    Gemma 3 & - & 27B & 128k & Yes \\
+    Llama 3 & - & 70B & 8k & Yes \\
+    Llama 4 Maverick & - & 402B & 1000k & Yes \\
+    Mistral Large & 24.11 & 123B & 128k & Yes \\
+    Mistral Small & 25.03 & 24B & 128k & Yes \\
+    \hline
+  \end{tabular}
+  \caption{Information about the LLMs evaluated in this project. Indicating the version used for evaluation, the number of parameters (P), the length of the context window (C), and whether the weights are openly available (O).}
+  \label{tab:llms}
+\end{table}
+
+The OpenAI models were accessed via the Azure OpenAI services. For this, a new backend was built to integrate with the \inlinecode{clembench} framework, as it was not natively supported. The Llama models were accessed via the qroq API, while the Mistral and Google models were accessed through their respective official APIs.
+
+
+\subsubsection{Game Instances}
+
+The experiments focused only on the semi-competitive and cooperative game modes. The strictly competitive zero-sum setting was not evaluated. This decision was based on the inherent difficulty of evaluating zero-sum games in a self-play setting, a challenge reinforced by related work. For instance, \cite{liao2024efficacy} also mention that for the competitive version of the game, players must necessarily play against a different model. This could be done eight by fixing one of the players to a specific model, which would introduce possible bias, or by playing in a sort of tournament style, which would make the results quite difficult to interpret. Given these challenges, this project has focused on the modes where outcomes are more clearly interpretable.
+
+For the evaluation 50 unique game instances have been generated for each combination of the two game modes and three languages: English, German, and Italian. This resulted in a total of $50 \times 2 \times 3 = 300$ distinct experimental conditions. The core content of the instances, i.e., item types, counts, and value functions, was kept consistent across languages, with only the item names and prompt text being translated. All LLMs were evaluated on this same set of $300$ instances.
 

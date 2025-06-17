@@ -84,4 +84,4 @@ plot <- ggplot(summary_data, aes(y = model, x = value, fill = name)) +
         strip.background = element_blank(),
     )
 
-ggsave("report/figures/outcome.pdf", plot, width = 5, height = 5)
+ggsave("report/figures/outcome.pdf", plot, width = 5, height = 3)
