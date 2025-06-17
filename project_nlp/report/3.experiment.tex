@@ -4,7 +4,34 @@ This section of the report discusses the methodology used for running the experi
 
 \subsection{The Game}
 
+\subsubsection{Core Mechanics}
 
+The DoND game is a two-player, turn-based dialogue game designed to simulate a multi-issue bargaining scenario. The core mechanics of the game are ass follows.
+
+\paragraph{Item Pool}
+At the start of each game, players are presented with a shared set of items, consisting of several types and quantities, e.g., a possible set might be \textit{3 books, 2 hats, 1 ball}. 
+
+\paragraph{Value Functions}
+In addition to the shared set of items, each player is also secretly given a different private value function, mapping each item type to a non-negative integer indicating how much the player values that specific type. This value is than the number of points the player will receive for each unit of that item. The fact that the two players value functions are different creates the central conflict in the game. An example of such a value function might be \textit{book: 0, hat: 2, ball: 6}.
+
+\paragraph{Negotiation}
+After having received the initial prompt from the game master, containing the rules of the game, the shared set of items, and the players respective set of items, players are able to exchange free-form natural language messages. These messages are transmitted directly between them and can be in any format, provided they do not contain the special proposal syntax. This enables them to engage in negotiation about how to divide the items, with the goal of reaching an agreement.
+
+\paragraph{Proposal}
+At any point during the conversation, or once prompted to by the game master after a turn limit is reached, the players can make a secret proposal using a specific syntax, e.g., \textit{[Proposal: 2 books, 1 hat]}. Once one player has made a proposal, the game master instructs the other player to also make a proposal, crucially however without revealing the content of the first proposal.
+
+\paragraph{Outcome}
+After both proposals are submitted, the game can end in either of two outcomes. In case the proposals are compatible, i.e., there are enough items to satisfy both proposals, or the proposals are conflicting. In case of compatible proposals, each player is awarded points based on total value of items they requested, according to their private value function. Should the proposals be conflicting, however, both players receive zero points.
+
+The game master strictly enforces the rules. If a player fails to follow instructions, e.g., not making a proposal when asked, submitting a malformed proposal, or requesting items that do not exist, the game is immediately aborted. Unlike in \cite{liao2024efficacy} there is no re-prompting on errors, making rule adherence a critical component of successful play.
+
+
+\subsubsection{Game Modes}
+
+
+
+
+\subsubsection{Instance Generation}
 
 
 \subsection{Evaluation Metrics}
