@@ -29,10 +29,31 @@ The game master strictly enforces the rules. If a player fails to follow instruc
 
 \subsubsection{Game Modes}
 
+In order to potentially test different aspects of strategic reasoning, the \inlinecode{clemgame} implemented for this project also includes the three different game modes presented in \cite{liao2024efficacy}. The initial prompt given to the players is identical across modes, except for the final rule which specifies the optimization objective to the players.
 
+\paragraph{Semi-Competitive}
+In the semi-competitive setting, players are asked to maximize their own score. This is the standard negotiation setting, and it requires players to balance cooperation, to avoid zero-point conflicts, with competition, to maximize their individual share.
+
+\paragraph{Cooperative}
+For the cooperative setting of the game, players are asked to maximize the sum of their score and the score of the other player. This transforms the game into a purely cooperative task, where the optimal strategy is to identify for each item which player values it the most. In this setting two rational agents should always achieve the maximum score, assuming they are able to communicate and reason about the preferences perfectly.
+
+\paragraph{Competitive}
+In the competitive setting the game is transformed into a zero-sum game. To achieve this each player is instructed to maximize the difference between their score and the score of the opposing player. This creates a strictly competitive, zero-sum game where for one player to gain points the other must necessarily loss them.
 
 
 \subsubsection{Instance Generation}
+
+The game instances for the evaluation were generated programmatically, as is standard within the \inlinecode{clembench} framework. This ensures a wide variety for possible initial conditions and somewhat controlled difficulty.
+
+Each instance was generated with a maximum turn limit of 5, i.e., each player can send at most 5 messages to the other player before being forced to make a proposal. Furthermore, each game instance features a random set of between 3 and 5 different item types, differing from \cite{liao2024efficacy} and \cite{lewis2017deal} where the number of item types was fixed to 3. The possible item types have been generated from a predefined list of 100 common nouns. The total number of items was set to between 5 and 8, and randomly distributed among the item types. Finally, a random value function of non-negative integers for all item types was generated for each player.
+
+The value functions were generated subject to the same constraints as in previous work on DoND \cite{liao2024efficacy,lewis2017deal}.
+\begin{enumerate*}
+    \item The maximum value a single player can achieve by receiving all the items in the game instance is exactly 10.
+    \item Every item in the game instance has a non-zero value to at least one of the two players.
+    \item There exists at least one item that has a non-zero value to both players.
+\end{enumerate*}
+These constraints are crucial for creating meaningful negotiation scenarios. The fixed maximum score normalizes the game, while the two other constraints on the value function ensure that no items are irrelevant and that it is impossible for both players to simultaneously achieve their maximum score, thus forcing a compromise.
 
 
 \subsection{Evaluation Metrics}

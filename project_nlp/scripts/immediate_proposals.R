@@ -9,9 +9,7 @@ clean_data <- raw_data %>%
         mode = str_split_i(experiment, "_", 2),
         lang = str_split_i(experiment, "_", 3),
         metric = case_when(
-            metric == "Aborted" ~ "aborted",
-            metric == "Success" ~ "success",
-            metric == "Main Score" ~ "quality",
+            metric == "Request Count" ~ "requests",
         ),
     ) %>%
     drop_na(metric) %>%
@@ -20,13 +18,14 @@ clean_data <- raw_data %>%
         names_from = "metric", values_from = "value"
     ) %>%
     mutate(
-        success = if_else(aborted == 0, success, NA),
-        quality = if_else(aborted == 0, quality, NA),
+        immediate = if_else(requests <= 2, 1, 0),
     )
 
-filtered_data <- clean_data %>%
-    filter(success == 1 & quality <= 1) %>%
-    select(model, mode, lang, episode)
+summary_data <- clean_data %>%
+    group_by(model) %>%
+    summarize(
+        immediate = mean(immediate),
+    )
 
-print(filtered_data)
+print(summary_data)
 
