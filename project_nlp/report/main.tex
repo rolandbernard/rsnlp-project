@@ -6,7 +6,8 @@
 \usepackage{amsthm, amsfonts, amsmath, amssymb, booktabs, float}
 \usepackage{sectsty, csquotes, xcolor, xspace, setspace, listings}
 \usepackage{graphicx, tabularx, changepage, multirow, subcaption}
-\usepackage{algorithm, algpseudocode, multicol, cuted}
+\usepackage{algorithm, algpseudocode, multicol, cuted, colortbl}
+\usepackage{makecell, supertabular}
 \usepackage[hidelinks,bookmarksdepth=3]{hyperref}
 \usepackage[capitalise]{cleveref}
 \usepackage[inline]{enumitem}
@@ -61,8 +62,8 @@
 \titlespacing*{\subsection}{0pt}{0.4\baselineskip}{0.1\baselineskip}
 \titlespacing*{\subsubsection}{0pt}{0.3\baselineskip}{0.1\baselineskip}
 \titlespacing*{\paragraph}{0pt}{0pt}{0.5\baselineskip}
-\captionsetup[figure]{aboveskip=5pt}
-\captionsetup[subfigure]{aboveskip=3pt}
+\captionsetup[figure]{aboveskip=5pt,belowskip=5pt}
+\captionsetup[subfigure]{aboveskip=3pt,belowskip=3pt}
 \hbadness=10000
 
 \title{Evaluating the Negotiation Abilities of Large Language Models Using Game Play}
@@ -94,7 +95,7 @@
 
 \makeatother
 
-\input{tikzfigures/defs.tex}
+\input{texfigures/defs.tex}
 
 \begin{document}
 
