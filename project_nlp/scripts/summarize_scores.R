@@ -44,11 +44,22 @@ summary_data <- clean_data %>%
 # The one is for the table, so I round the values and order them like in the table.
 summary2_data <- summary_data %>%
     mutate(
-        model = factor(model, levels = c(
-            "gpt-3.5-turbo-0125", "gpt-4-turbo-2024-04-09", "gpt-4.1-2025-04-16",
-            "o4-mini-2025-04-16", "gemini-2.0-flash-001", "gemma-3-27b-it", "llama-3-70b",
-            "llama-4-maverick-17b-128e", "mistral-large-2411", "mistral-small-2503"
-        )),
+        model = case_when(
+            model == "gpt-3.5-turbo-0125" ~ "GPT 3.5",
+            model == "gpt-4-turbo-2024-04-09" ~ "GPT 4",
+            model == "gpt-4.1-2025-04-16" ~ "GPT 4.1",
+            model == "o4-mini-2025-04-16" ~ "o4-mini",
+            model == "gemini-2.0-flash-001" ~ "Gemini 2.0 Flash",
+            model == "gemma-3-27b-it" ~ "Gemma 3",
+            model == "llama-3-70b" ~ "Llama 3",
+            model == "llama-4-maverick-17b-128e" ~ "Llama 4 Maverick",
+            model == "mistral-large-2411" ~ "Mistral Large",
+            model == "mistral-small-2503" ~ "Mistral Small",
+        ),
+        model = fct_rev(factor(model, levels = c(
+            "GPT 3.5", "GPT 4", "GPT 4.1", "o4-mini", "Gemini 2.0 Flash", "Gemma 3",
+            "Llama 3", "Llama 4 Maverick", "Mistral Large", "Mistral Small"
+        ))),
         mode = factor(mode, levels = c("semi", "coop", "comp")),
         lang = factor(lang, levels = c("en", "de", "it")),
         clemscore = round(clemscore),
@@ -58,8 +69,29 @@ summary2_data <- summary_data %>%
         quality = round(quality),
         requests = round(requests, 1),
     ) %>%
-    arrange(model, mode, lang) %>%
-    select(model, mode, lang, clemscore, played, success, optimal, quality, requests)
+    pivot_longer(cols = c("clemscore", "played", "success", "optimal", "quality", "requests")) %>%
+    mutate(
+        name = case_when(
+            name == "clemscore" ~ "Clemscore",
+            name == "played" ~ "% Played",
+            name == "success" ~ "% Agreement",
+            name == "optimal" ~ "% Optimal",
+            name == "quality" ~ "Quality Score",
+            name == "requests" ~ "Avg. # Messages",
+        ),
+        name = factor(name, levels = c(
+            "Clemscore", "% Played", "% Agreement", "% Optimal", "Quality Score", "Avg. # Messages"
+        ))
+    ) %>%
+    pivot_wider(
+        id_cols = c("mode", "lang", "name"),
+        names_from = "model", values_from = "value"
+    ) %>%
+    arrange(mode, lang, name) %>%
+    select(mode, lang, name,
+        "GPT 3.5", "GPT 4", "GPT 4.1", "o4-mini", "Gemini 2.0 Flash", "Gemma 3",
+        "Llama 3", "Llama 4 Maverick", "Mistral Large", "Mistral Small"
+    )
 # This one summarizes over all experiments performed with the same model, giving
 # an overall quality assessment of the model.
 summary3_data <- clean_data %>%
@@ -76,11 +108,22 @@ summary3_data <- clean_data %>%
         clemscore = played * quality,
     ) %>%
     mutate(
-        model = factor(model, levels = c(
-            "gpt-3.5-turbo-0125", "gpt-4-turbo-2024-04-09", "gpt-4.1-2025-04-16",
-            "o4-mini-2025-04-16", "gemini-2.0-flash-001", "gemma-3-27b-it", "llama-3-70b",
-            "llama-4-maverick-17b-128e", "mistral-large-2411", "mistral-small-2503"
-        )),
+        model = case_when(
+            model == "gpt-3.5-turbo-0125" ~ "GPT 3.5",
+            model == "gpt-4-turbo-2024-04-09" ~ "GPT 4",
+            model == "gpt-4.1-2025-04-16" ~ "GPT 4.1",
+            model == "o4-mini-2025-04-16" ~ "o4-mini",
+            model == "gemini-2.0-flash-001" ~ "Gemini 2.0 Flash",
+            model == "gemma-3-27b-it" ~ "Gemma 3",
+            model == "llama-3-70b" ~ "Llama 3",
+            model == "llama-4-maverick-17b-128e" ~ "Llama 4 Maverick",
+            model == "mistral-large-2411" ~ "Mistral Large",
+            model == "mistral-small-2503" ~ "Mistral Small",
+        ),
+        model = fct_rev(factor(model, levels = c(
+            "GPT 3.5", "GPT 4", "GPT 4.1", "o4-mini", "Gemini 2.0 Flash", "Gemma 3",
+            "Llama 3", "Llama 4 Maverick", "Mistral Large", "Mistral Small"
+        ))),
         clemscore = round(clemscore),
         played = round(100 * played),
         success = round(100 * success),
