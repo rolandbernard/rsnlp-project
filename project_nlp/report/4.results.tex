@@ -29,47 +29,47 @@ In this section of the report, the results of the experiments will be discussed.
       \hline
       Mode & Lang. & Metric & GPT 3.5 & GPT 4 & GPT 4.1 & o4-mini & Gemini 2.0 & Gemma 3 & Llama 3 & Llama 4 & Mistral Large & Mistral Small \\
       \hline
-      semi & en & Clemscore & 0 & 61 & 69 & 44 & 42 & 20 & 0 & 49 & 38 & 24 \\
-      semi & en & \% Played & 32 & 100 & 98 & 100 & 98 & 82 & 14 & 86 & 72 & 80 \\
-      semi & en & \% Agreement & 7 & 78 & 74 & 48 & 47 & 32 & 0 & 70 & 61 & 35 \\
-      semi & en & \% Optimal & 0 & 30 & 51 & 36 & 24 & 10 & 0 & 30 & 39 & 18 \\
-      semi & en & Quality Score & 0 & 61 & 70 & 44 & 42 & 24 & 0 & 57 & 53 & 30 \\
-      semi & en & Avg. \# Messages & 3.3 & 7.9 & 7.1 & 4.3 & 6.9 & 7 & 10 & 6.6 & 8.5 & 6.5 \\
+      semi & en & Clemscore & 0 & 61 & \textbf{69} & 44 & 42 & 20 & 0 & 49 & 38 & 24 \\
+       &  & \% Played & 32 & \textbf{100} & 98 & \textbf{100} & 98 & 82 & 14 & 86 & 72 & 80 \\
+       &  & \% Agreement & 7 & \textbf{78} & 74 & 48 & 47 & 32 & 0 & 70 & 61 & 35 \\
+       &  & \% Optimal & 0 & 30 & \textbf{51} & 36 & 24 & 10 & 0 & 30 & 39 & 18 \\
+       &  & Quality Score & 0 & 61 & \textbf{70} & 44 & 42 & 24 & 0 & 57 & 53 & 30 \\
+       &  & Avg. \# Messages & 3.3 & 7.9 & 7.1 & 4.3 & 6.9 & 7 & 10 & 6.6 & 8.5 & 6.5 \\
        \hline
-      semi & de & Clemscore & 9 & 43 & 59 & 41 & 8 & 9 & -- & 26 & 60 & 21 \\
-      semi & de & \% Played & 66 & 81 & 98 & 100 & 89 & 82 & -- & 74 & 100 & 92 \\
-      semi & de & \% Agreement & 16 & 68 & 70 & 43 & 12 & 12 & -- & 41 & 69 & 30 \\
-      semi & de & \% Optimal & 6 & 32 & 35 & 37 & 4 & 7 & -- & 22 & 43 & 9 \\
-      semi & de & Quality Score & 14 & 53 & 61 & 41 & 9 & 11 & -- & 36 & 60 & 23 \\
-      semi & de & Avg. \# Messages & 3.3 & 7 & 6.3 & 4.1 & 8.6 & 6.2 & -- & 6.9 & 6 & 5.2 \\
+      semi & de & Clemscore & 9 & 43 & 59 & 41 & 8 & 9 & -- & 26 & \textbf{60} & 21 \\
+       &  & \% Played & 66 & 81 & 98 & \textbf{100} & 89 & 82 & -- & 74 & \textbf{100} & 92 \\
+       &  & \% Agreement & 16 & 68 & \textbf{70} & 43 & 12 & 12 & -- & 41 & 69 & 30 \\
+       &  & \% Optimal & 6 & 32 & 35 & 37 & 4 & 7 & -- & 22 & \textbf{43} & 9 \\
+       &  & Quality Score & 14 & 53 & \textbf{61} & 41 & 9 & 11 & -- & 36 & 60 & 23 \\
+       &  & Avg. \# Messages & 3.3 & 7 & 6.3 & 4.1 & 8.6 & 6.2 & -- & 6.9 & 6 & 5.2 \\
       \hline
-      semi & it & Clemscore & 4 & 50 & 49 & 17 & 15 & 15 & -- & 19 & 64 & 26 \\
-      semi & it & \% Played & 51 & 93 & 95 & 100 & 96 & 90 & -- & 66 & 100 & 98 \\
-      semi & it & \% Agreement & 13 & 62 & 59 & 20 & 19 & 20 & -- & 33 & 72 & 35 \\
-      semi & it & \% Optimal & 0 & 36 & 34 & 9 & 10 & 9 & -- & 12 & 48 & 8 \\
-      semi & it & Quality Score & 7 & 53 & 51 & 17 & 16 & 17 & -- & 29 & 64 & 26 \\
-      semi & it & Avg. \# Messages & 3.8 & 7.4 & 6 & 5.1 & 6.7 & 6.1 & -- & 5.7 & 6.2 & 5.4 \\
+      semi & it & Clemscore & 4 & 50 & 49 & 17 & 15 & 15 & -- & 19 & \textbf{64} & 26 \\
+       &  & \% Played & 51 & 93 & 95 & \textbf{100} & 96 & 90 & -- & 66 & \textbf{100} & 98 \\
+       &  & \% Agreement & 13 & 62 & 59 & 20 & 19 & 20 & -- & 33 & \textbf{72} & 35 \\
+       &  & \% Optimal & 0 & 36 & 34 & 9 & 10 & 9 & -- & 12 & \textbf{48} & 8 \\
+       &  & Quality Score & 7 & 53 & 51 & 17 & 16 & 17 & -- & 29 & \textbf{64} & 26 \\
+       &  & Avg. \# Messages & 3.8 & 7.4 & 6 & 5.1 & 6.7 & 6.1 & -- & 5.7 & 6.2 & 5.4 \\
       \hline
-      coop & en & Clemscore & 3 & 74 & 65 & 57 & 31 & 25 & 29 & 48 & 26 & 26 \\
-      coop & en & \% Played & 56 & 100 & 100 & 100 & 92 & 90 & 60 & 78 & 77 & 86 \\
-      coop & en & \% Agreement & 11 & 83 & 67 & 60 & 37 & 31 & 60 & 74 & 39 & 37 \\
-      coop & en & \% Optimal & 0 & 36 & 43 & 44 & 11 & 11 & 0 & 18 & 22 & 12 \\
-      coop & en & Quality Score & 6 & 74 & 65 & 57 & 33 & 27 & 48 & 62 & 35 & 31 \\
-      coop & en & Avg. \# Messages & 2.9 & 7.8 & 6.7 & 4.7 & 7.1 & 6.4 & 9.1 & 6.7 & 8.9 & 6 \\
+      coop & en & Clemscore & 3 & \textbf{74} & 65 & 57 & 31 & 25 & 29 & 48 & 26 & 26 \\
+       &  & \% Played & 56 & \textbf{100} & \textbf{100} & \textbf{100} & 92 & 90 & 60 & 78 & 77 & 86 \\
+       &  & \% Agreement & 11 & \textbf{83} & 67 & 60 & 37 & 31 & 60 & 74 & 39 & 37 \\
+       &  & \% Optimal & 0 & 36 & \textbf{43} & 44 & 11 & 11 & 0 & 18 & 22 & 12 \\
+       &  & Quality Score & 6 & \textbf{74} & 65 & 57 & 33 & 27 & 48 & 62 & 35 & 31 \\
+       &  & Avg. \# Messages & 2.9 & 7.8 & 6.7 & 4.7 & 7.1 & 6.4 & 9.1 & 6.7 & 8.9 & 6 \\
       \hline
-      coop & de & Clemscore & 9 & 37 & 65 & 51 & 16 & 15 & 27 & 20 & 66 & 9 \\
-      coop & de & \% Played & 86 & 63 & 98 & 98 & 96 & 76 & 86 & 60 & 100 & 86 \\
-      coop & de & \% Agreement & 16 & 67 & 70 & 58 & 21 & 26 & 44 & 40 & 71 & 14 \\
-      coop & de & \% Optimal & 3 & 22 & 44 & 31 & 8 & 0 & 2 & 23 & 39 & 0 \\
-      coop & de & Quality Score & 11 & 59 & 66 & 52 & 17 & 20 & 32 & 33 & 66 & 10 \\
-      coop & de & Avg. \# Messages & 2.2 & 6.6 & 6.6 & 4.1 & 10.1 & 6 & 9.1 & 6.2 & 6 & 5.5 \\
+      coop & de & Clemscore & 9 & 37 & 65 & 51 & 16 & 15 & 27 & 20 & \textbf{66} & 9 \\
+       &  & \% Played & 86 & 63 & 98 & 98 & 96 & 76 & 86 & 60 & \textbf{100} & 86 \\
+       &  & \% Agreement & 16 & 67 & 70 & 58 & 21 & 26 & 44 & 40 & \textbf{71} & 14 \\
+       &  & \% Optimal & 3 & 22 & \textbf{44} & 31 & 8 & 0 & 2 & 23 & 39 & 0 \\
+       &  & Quality Score & 11 & 59 & \textbf{66} & 52 & 17 & 20 & 32 & 33 & 66 & 10 \\
+       &  & Avg. \# Messages & 2.2 & 6.6 & 6.6 & 4.1 & 10.1 & 6 & 9.1 & 6.2 & 6 & 5.5 \\
       \hline
-      coop & it & Clemscore & 3 & 84 & 50 & 39 & 15 & 10 & 24 & 26 & 46 & 24 \\
-      coop & it & \% Played & 35 & 100 & 89 & 100 & 98 & 94 & 90 & 62 & 100 & 100 \\
-      coop & it & \% Agreement & 12 & 92 & 62 & 46 & 20 & 15 & 39 & 52 & 53 & 30 \\
-      coop & it & \% Optimal & 0 & 50 & 31 & 22 & 0 & 4 & 2 & 10 & 27 & 2 \\
-      coop & it & Quality Score & 7 & 84 & 57 & 39 & 16 & 11 & 27 & 42 & 46 & 24 \\
-      coop & it & Avg. \# Messages & 7.2 & 7.4 & 6.2 & 4.5 & 7 & 6.4 & 9.7 & 5.9 & 6.4 & 5.1 \\
+      coop & it & Clemscore & 3 & \textbf{84} & 50 & 39 & 15 & 10 & 24 & 26 & 46 & 24 \\
+       &  & \% Played & 35 & \textbf{100} & 89 & \textbf{100} & 98 & 94 & 90 & 62 & \textbf{100} & \textbf{100} \\
+       &  & \% Agreement & 12 & \textbf{92} & 62 & 46 & 20 & 15 & 39 & 52 & 53 & 30 \\
+       &  & \% Optimal & 0 & \textbf{50} & 31 & 22 & 0 & 4 & 2 & 10 & 27 & 2 \\
+       &  & Quality Score & 7 & \textbf{84} & 57 & 39 & 16 & 11 & 27 & 42 & 46 & 24 \\
+       &  & Avg. \# Messages & 7.2 & 7.4 & 6.2 & 4.5 & 7 & 6.4 & 9.7 & 5.9 & 6.4 & 5.1 \\
       \hline
     \end{tabular}
   \end{widepage}
