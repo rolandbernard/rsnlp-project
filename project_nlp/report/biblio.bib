@@ -1,0 +1,38 @@
+@inproceedings{magar-schwartz-2022-data,
+    title = "Data Contamination: From Memorization to Exploitation",
+    author = "Magar, Inbal  and
+      Schwartz, Roy",
+    editor = "Muresan, Smaranda  and
+      Nakov, Preslav  and
+      Villavicencio, Aline",
+    booktitle = "Proceedings of the 60th Annual Meeting of the Association for Computational Linguistics (Volume 2: Short Papers)",
+    month = may,
+    year = "2022",
+    address = "Dublin, Ireland",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2022.acl-short.18/",
+    doi = "10.18653/v1/2022.acl-short.18",
+    pages = "157--165",
+    abstract = "Pretrained language models are typically trained on massive web-based datasets, which are often ``contaminated'' with downstream test sets. It is not clear to what extent models exploit the contaminated data for downstream tasks. We present a principled method to study this question. We pretrain BERT models on joint corpora of Wikipedia and labeled downstream datasets, and fine-tune them on the relevant task. Comparing performance between samples seen and unseen during pretraining enables us to define and quantify levels of memorization and exploitation. Experiments with two models and three downstream tasks show that exploitation exists in some cases, but in others the models memorize the contaminated data, but do not exploit it. We show that these two measures are affected by different factors such as the number of duplications of the contaminated data and the model size. Our results highlight the importance of analyzing massive web-scale datasets to verify that progress in NLP is obtained by better language understanding and not better data exploitation."
+}
+@inproceedings{chalamalasetti-etal-2023-clembench,
+    title = "clembench: Using Game Play to Evaluate Chat-Optimized Language Models as Conversational Agents",
+    author = {Chalamalasetti, Kranti  and
+      G{\"o}tze, Jana  and
+      Hakimov, Sherzod  and
+      Madureira, Brielen  and
+      Sadler, Philipp  and
+      Schlangen, David},
+    editor = "Bouamor, Houda  and
+      Pino, Juan  and
+      Bali, Kalika",
+    booktitle = "Proceedings of the 2023 Conference on Empirical Methods in Natural Language Processing",
+    month = dec,
+    year = "2023",
+    address = "Singapore",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2023.emnlp-main.689/",
+    doi = "10.18653/v1/2023.emnlp-main.689",
+    pages = "11174--11219",
+    abstract = "Recent work has proposed a methodology for the systematic evaluation of ``Situated Language Understanding Agents'' {---} agents that operate in rich linguistic and non-linguistic contexts {---} through testing them in carefully constructed interactive settings. Other recent work has argued that Large Language Models (LLMs), if suitably set up, can be understood as (simulators of) such agents. A connection suggests itself, which this paper explores: Can LLMs be evaluated meaningfully by exposing them to constrained game-like settings that are built to challenge specific capabilities? As a proof of concept, this paper investigates five interaction settings, showing that current chat-optimised LLMs are, to an extent, capable of following game-play instructions. Both this capability and the quality of the game play, measured by how well the objectives of the different games are met, follows the development cycle, with newer models generally performing better. The metrics even for the comparatively simple example games are far from being saturated, suggesting that the proposed instrument will remain to have diagnostic value."
+}

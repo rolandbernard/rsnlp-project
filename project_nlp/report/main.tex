@@ -60,6 +60,7 @@
 \titlespacing*{\paragraph}{0pt}{0.5\baselineskip}{0.5\baselineskip}
 \captionsetup[figure]{aboveskip=5pt}
 \captionsetup[subfigure]{aboveskip=3pt}
+\hbadness=10000
 
 \title{Evaluating the Negotiation Abilities of Large Language Models Using Game Play}
 \author{Roland Bernard, 19598, \inlinecode{rolbernard@unibz.it}}
@@ -96,7 +97,7 @@
 \maketitle
 
 \begin{abstract}
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
+This project performs an evaluation of Large Language Models (LLMs) by designing and implementing a new \inlinecode{clemgame} based on the Deal or No Deal (DoND) negotiation scenario. The core capabilities being assessed in this project are the LLM's performance in interactive negotiation, requiring strategic communication and decision-making under uncertainty. The evaluation involves a dynamic, dialogue-based environment where two LLM agents negotiate the division of a set of items, with each agent being given a private value function unknown to the other player. A range of recent closed- and open-weight models were evaluated across cooperative and semi-competitive game modes in multiple languages. Performance was measured using metrics for rule-following, agreement rates, and the quality of outcomes with respect to Pareto efficiency. Key findings indicate that while newer, larger models like GPT-4.1 and Mistral Large demonstrate superior rule adherence and negotiation outcomes, most models struggle with consistent strategic reasoning. These results highlight critical areas for improvement in LLM development and underscore the value of interactive benchmarks for a more holistic evaluation of model capabilities.
 \end{abstract}
 
 \section{Introduction} \label{introcudction}
