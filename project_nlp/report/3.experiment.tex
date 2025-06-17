@@ -66,7 +66,7 @@ Every \inlinecode{clemgame} should also define a metric specifying how well the 
 
 Evaluating the game in the semi-competitive setting is slightly more involved, as it requires finding a single score that jointly reflects the quality of the outcome for both players. For this, a metric based on Pareto efficiency has been used in this project. The score is defined as one minus the normalized maximum possible Pareto improvement, $\mathit{Quality}_\mathit{semi} = 1 - \frac{\mathit{Maximum Pareto Improvement}}{\max ( \mathit{Score}_i' )}$. The maximum possible Pareto improvement is the largest amount the score of one player could be increased without decreasing the score of the other. Normalization is performed by dividing by the maximum possible score a single player can obtain, to obtain again a value between $0$ and $1$.
 
-As one additional metric for closer analysis of the game results this project employs also the percentage of games that end with Pareto optimal outcomes. An outcome is Pareto optimal if no players score can be increased without also decreasing the score of the other player. For the cooperative setting, an outcome is Pareto optimal if it archives the maximum score. Note that in these cases our quality score will be $1$. 
+As one additional metric for closer analysis of the game results this project employs also the percentage of games that end with Pareto optimal outcomes. An outcome is Pareto optimal if no players score can be increased without also decreasing the score of the other player. For the cooperative setting, an outcome is Pareto optimal if it archives the maximum score. Note that in these cases the quality score will be $1$. 
 
 
 \subsection{Experimental Setup}

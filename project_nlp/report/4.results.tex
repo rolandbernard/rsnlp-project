@@ -65,7 +65,7 @@ Mistral Large also performed strongly, being the best performing model for which
 
 o4-mini is notable for its nearly perfect rule-following, though its negotiation quality was moderate compared to the other non-reasoning models.
 
-GPT-3.5 was the worst-performing model by a large margin, with a very low clemscore of 5. It struggled significantly with rule-following, meaning only 54\% of games were played to completion, and rarely reached successful agreements. Llama 3, Gemma 3, and Mistral Small also showed poor performance. Llama 3 struggled mainly with rule following, while Gemma 3 and Mistral Small were quite bad at reaching agreements. All three of them struggled to reach optimal outcomes.
+GPT-3.5 was the worst-performing model by a large margin, with a very low clemscore of 5. It struggled significantly with rule-following, meaning only 54\% of games were played to completion, and rarely reached successful agreements. This aligns with the baseline results in \cite{liao2024efficacy}, where similarly bad performance was observed in comparison to GPT 4. Llama 3, Gemma 3, and Mistral Small also showed poor performance. Llama 3 struggled mainly with rule following, while Gemma 3 and Mistral Small were quite bad at reaching agreements. All three of them struggled to reach optimal outcomes.
 
 Generally, models performed about the same in the cooperative mode and in the semi-competitive setting. While the cooperative game settings has very slightly higher average game quality scores, and therefore slightly higher clemscores, the rate of rule violations was identical. Note that while on average a Pareto optimal outcome is reached more often in the semi-competitive setting, 22\% against 18\% in the cooperative setting, this is likely because in the cooperative setting there is always only one optimal outcome, while there could be multiple in the semi-competitive one.
 
@@ -81,10 +81,33 @@ Performance was generally highest in English, which is expected given the traini
 
 \subsection{Qualitative Analysis}
 
+To gain deeper insights into the behaviours of the models and common failure modes some dialogue transcript were examined in more detail. Overall, the following common mistakes and suboptimal behaviours were identified.
 
+\paragraph{Immediately Proposing}
+In some game transcripts it can be observed that the model would often make a proposal in its very first turn without any prior discussion. This was a major issue for GPT 3.5, which made an immediate proposal in 71\% of its games. While not always immediate, the o4-mini model also tended to terminate games prematurely before a real agreement could be reached. This behaviour bypasses the negotiation aspect of the game and almost always results in a conflict.
+
+\paragraph{Contradictory Actions}
+Models would sometimes engage in a seemingly productive dialogue, agreeing to a certain split, only to make a final proposal that completely contradicted their stated intentions. This suggests a disconnect between the conversational and the final decision-making process. This behaviour was particularly common for the smaller models like Gemma 3 and Mistral Small. However, even some larger models frequently submitted proposals containing the items that have been agreed to be given to the other player.
+
+\paragraph{Incorrect Proposal Syntax}
+Another frequent cause of aborted games was the failure to use the precise \textit{[Proposal: ...]} syntax when instructed. Models would often present their proposal in different formats instead of using the required format. This often led to confusion, as the informal proposal was passed as a regular message to the other player, who might then think the game was over. This was a particular problem for GPT-3.5 and Llama models.
+
+\paragraph{Role Confusion}
+Some instances of players adopting the wrong persona were also observed. A common error was a player pretending to be the game master or making a proposal on behalf of their opponent. This was also most prominent with GPT-3.5 and Llama models. The Gemini 2.0 Flash model exhibited a particularly strange version of this, sometimes generating a complete, fictitious dialogue log between two imaginary players instead of interacting with its actual opponent.
+
+\paragraph{General Behaviour and Lack of Strategy}
+Across the board, even the best-performing models displayed a lack of deep strategic reasoning. For example, in the cooperative setting, the optimal strategy is to perform a simple calculation. Identify which player values each item more and distribute them accordingly to maximize the total score. However, virtually no model did this. Instead, they engaged in standard bargaining dialogue, attempting to find a fair compromise as if they were in the semi-competitive mode. This indicates that the models are pattern-matching a generic negotiation script rather than adapting their strategy to the specific optimization goal provided in the prompt. They understand how to negotiate on a surface level but often fail to understand why or what for.
 
 
 \subsection{Overall Performance Summary}
+
+In summary, the evaluation reveals a wide spectrum of negotiation abilities among current LLMs, as depicted in \cref{fig:playedquality}. Excluding the very poorly performing GPT 3.5 model, which struggles on all fronts, we can generally identify three clusters in the plot.
+
+The recent OpenAI models GPT 4, GPT 4.1, and o4-mini, as well as the Mistral Large model performed well both with regard to percentage of games played and the achieved quality scores. These models demonstrate strong rule-following and can successfully reach agreements a majority of the time. They achieve reasonably efficient outcomes, though they still lack deep strategic insight. Their performance is a significant step up from their predecessors.
+
+The next cluster of models includes the Gemini 2.0 Flash, Gemma 3, and Mistral Small models. These models are generally capable of following rules but are less effective negotiators.
+
+Finally, the last cluster contains the Llama 3 and Llama 4 models. The exhibit better negotiation performance that the second cluster, but they also perform significantly worse when it comes to rule-following. Still, these models are not as good at reaching agreements as the first identified cluster.
 
 \begin{figure}[ht]
   \centering
@@ -93,5 +116,5 @@ Performance was generally highest in English, which is expected given the traini
   \label{fig:playedquality}
 \end{figure}
 
-
+Answering the primary research question, LLMs handle negotiation with mixed success. While the best models can follow the conversational flow of a negotiation and reach agreements, they do not exhibit sophisticated, goal-driven strategic reasoning. Their performance seems to stem from pattern-matching learned dialogue structures rather than a genuine understanding of game theory or strategic optimization.
 
