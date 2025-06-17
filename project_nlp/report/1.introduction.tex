@@ -1,4 +1,21 @@
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
+In the last several years we have experienced a dramatic evolution in the capabilities of Large Language Models (LLMs), which now demonstrate remarkable performance across a wide range of Natural Language Processing (NLP) tasks. These include not only text generation or summarization but also complex reasoning. As a result, these models are increasingly integrated into various applications. However, traditional methods for evaluating LLMs, which often rely on static benchmark datasets, have significant limitations. Most importantly, these benchmarks are susceptible to data contamination, where test data may have been included in the massive training corpora of the models \cite{magar-schwartz-2022-data}. Furthermore, they fail to assess the abilities of models in interactive scenarios that more closely reflect real-world human interactions with the models.
+
+Dialogue games have been proposed as a tool for LLM evaluation addressing these shortcomings. The \inlinecode{clembench} framework, in particular, offers a structured approach to this by introducing the concept of a \inlinecode{clemgame}, which is an interactive, goal-oriented dialogue game played between two LLM agents, arbitrated by a programmatic game master \cite{chalamalasetti-etal-2023-clembench}. Such a setup allows for the evaluation of nuanced capabilities such as strategic reasoning, instruction following, and language grounding in a dynamic but still controlled environment.
+
+This project leverages the \inlinecode{clembench} framework to introduce a new game, Deal or No Deal (DoND), designed to probe a set of capabilities not extensively covered by existing \inlinecode{clemgames}. Specifically, this new game tries to evaluate negotiation skills, ability to express and understand preferences, and the ability to compromise. In DoND, players must communicate to reach a mutually beneficial agreement on the division of a set of items, each holding different values for each player. Aside from negotiation, the game also challenges the LLM's ability to adhere to rules, such as using a specific syntax for final proposals. Furthermore, it requires the LLMs be capable of maintaining conversational grounding by reasoning about the items as well as its own and the other players preferences as stated in the dialogue.
+
+The primary question this project attempts to answer then it how various state-of-the-art LLMs perform in this new \inlinecode{clemgame} specifically designed to test their negotiation, strategic communication, and rule-following abilities.
+
+To answer this question, the objectives of this project were the following:
+\begin{enumerate*}
+    \item To design and implement a new \inlinecode{clemgame}, based on the DoND negotiation task, including with different game modes to create cooperative, semi-competitive, and competitive scenarios.
+    \item To select and apply appropriate evaluation metrics to assess LLM performance, focusing on rule adherence, the rate of agreement, and the quality of the outcomes.
+    \item To conduct an experiment using a diverse set of recent open- and closed-weight LLMs to analyse their performance across multiple languages, specifically English, German, and Italian.
+    \item To identify and discuss the strengths and weaknesses of the evaluated LLMs within this negotiation setting, providing mainly quantitative but also some qualitative insights.
+\end{enumerate*}
+
+The remainder of this report is structured as follows:
+\Cref{related} reviews related work in LLM evaluation, dialogue games, and AI for negotiation.
+\Cref{experiment} details the experimental design, including the game mechanics, instance generation process, dialogue flow, evaluation metrics, and the overall setup.
+\Cref{results} presents and analyses the results of the experiments, offering both a quantitative breakdown and some qualitative discussion of model behaviours.
+Finally, \Cref{conclusion} concludes with a summary of the findings and discusses the contributions and limitations of the project, highlighting possible avenues for future research.
