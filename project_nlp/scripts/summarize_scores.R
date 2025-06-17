@@ -133,8 +133,58 @@ summary3_data <- clean_data %>%
     ) %>%
     arrange(model) %>%
     select(model, clemscore, played, success, optimal, quality, requests)
+# This one summarizes over all game modes.
+summary4_data <- clean_data %>%
+    group_by(mode) %>%
+    summarize(
+        requests = mean(requests),
+        aborted = mean(aborted),
+        played = mean(played),
+        success = mean(success, na.rm=TRUE),
+        optimal = mean(optimal, na.rm=TRUE),
+        quality = mean(quality, na.rm=TRUE),
+    ) %>%
+    mutate(
+        clemscore = played * quality,
+    ) %>%
+    mutate(
+        clemscore = round(clemscore),
+        played = round(100 * played),
+        success = round(100 * success),
+        optimal = round(100 * optimal),
+        quality = round(quality),
+        requests = round(requests, 1),
+    ) %>%
+    arrange(mode) %>%
+    select(mode, clemscore, played, success, optimal, quality, requests)
+# This one summarizes over all languages.
+summary5_data <- clean_data %>%
+    group_by(lang) %>%
+    summarize(
+        requests = mean(requests),
+        aborted = mean(aborted),
+        played = mean(played),
+        success = mean(success, na.rm=TRUE),
+        optimal = mean(optimal, na.rm=TRUE),
+        quality = mean(quality, na.rm=TRUE),
+    ) %>%
+    mutate(
+        clemscore = played * quality,
+    ) %>%
+    mutate(
+        clemscore = round(clemscore),
+        played = round(100 * played),
+        success = round(100 * success),
+        optimal = round(100 * optimal),
+        quality = round(quality),
+        requests = round(requests, 1),
+    ) %>%
+    arrange(lang) %>%
+    select(lang, clemscore, played, success, optimal, quality, requests)
 
 write_csv(summary_data, "clemgame-dond/results/summary.csv")
 write_csv(summary2_data, "clemgame-dond/results/summary2.csv")
 write_csv(summary3_data, "clemgame-dond/results/summary3.csv")
+write_csv(summary4_data, "clemgame-dond/results/summary4.csv")
+write_csv(summary5_data, "clemgame-dond/results/summary5.csv")
 

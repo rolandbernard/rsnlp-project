@@ -4,13 +4,7 @@ In this section of the report, the results of the experiments will be discussed.
 
 \subsection{Quantitative Analysis}
 
-\begin{figure}[ht]
-  \centering
-  \includegraphics[width=\linewidth]{figures/outcome.pdf}
-  \caption{Percentage of games that ended with a specific game outcome during the evaluation of different models. All results for the two game modes and three languages have been averaged together for this plot.}
-  \label{fig:outcome}
-\end{figure}
-
+The performance of the ten LLMs has been evaluated across the semi-competitive and cooperative game modes in English, German, and Italian. The detailed results are shown in \cref{tab:results}, and reveal significant variations in performance, rule-following, and strategic competence. The clemscore is an overall metric that combines the quality score with the percentage of games played to completion as defined in \cite{chalamalasetti-etal-2023-clembench}, providing a single number for model performance.
 
 \begin{table*}[ht]
   \footnotesize
@@ -21,23 +15,23 @@ In this section of the report, the results of the experiments will be discussed.
       \hline
       Mode & Lang. & Metric & GPT 3.5 & GPT 4 & GPT 4.1 & o4-mini & Gemini 2.0 & Gemma 3 & Llama 3 & Llama 4 & Mistral Large & Mistral Small \\
       \hline
-      semi & en & Clemscore & 0 & 61 & \textbf{69} & 44 & 42 & 20 & 0 & 49 & 38 & 24 \\
-       &  & \% Played & 32 & \textbf{100} & 98 & \textbf{100} & 98 & 82 & 14 & 86 & 72 & 80 \\
-       &  & \% Agreement & 7 & \textbf{78} & 74 & 48 & 47 & 32 & 0 & 70 & 61 & 35 \\
-       &  & \% Optimal & 0 & 30 & \textbf{51} & 36 & 24 & 10 & 0 & 30 & 39 & 18 \\
-       &  & Quality Score & 0 & 61 & \textbf{70} & 44 & 42 & 24 & 0 & 57 & 53 & 30 \\
+      semi & en & Clemscore & 0 & 61 & \textbf{69} & 44 & 42 & 20 & 22 & 49 & 38 & 24 \\
+       &  & \% Played & 32 & \textbf{100} & 98 & \textbf{100} & 98 & 82 & 42 & 86 & 72 & 80 \\
+       &  & \% Agreement & 7 & \textbf{78} & 74 & 48 & 47 & 32 & 71 & 70 & 61 & 35 \\
+       &  & \% Optimal & 0 & 30 & \textbf{51} & 36 & 24 & 10 & 5 & 30 & 39 & 18 \\
+       &  & Quality Score & 0 & 61 & \textbf{70} & 44 & 42 & 24 & 51 & 57 & 53 & 30 \\
        \hline
-      semi & de & Clemscore & 9 & 43 & 59 & 41 & 8 & 9 & -- & 26 & \textbf{60} & 21 \\
-       &  & \% Played & 66 & 81 & 98 & \textbf{100} & 89 & 82 & -- & 74 & \textbf{100} & 92 \\
-       &  & \% Agreement & 16 & 68 & \textbf{70} & 43 & 12 & 12 & -- & 41 & 69 & 30 \\
-       &  & \% Optimal & 6 & 32 & 35 & 37 & 4 & 7 & -- & 22 & \textbf{43} & 9 \\
-       &  & Quality Score & 14 & 53 & \textbf{61} & 41 & 9 & 11 & -- & 36 & 60 & 23 \\
+      semi & de & Clemscore & 9 & 43 & 59 & 41 & 8 & 9 & 28 & 26 & \textbf{60} & 21 \\
+       &  & \% Played & 66 & 81 & 98 & \textbf{100} & 89 & 82 & 90 & 74 & \textbf{100} & 92 \\
+       &  & \% Agreement & 16 & 68 & \textbf{70} & 43 & 12 & 12 & 42 & 41 & 69 & 30 \\
+       &  & \% Optimal & 6 & 32 & 35 & 37 & 4 & 7 & 4 & 22 & \textbf{43} & 9 \\
+       &  & Quality Score & 14 & 53 & \textbf{61} & 41 & 9 & 11 & 31 & 36 & 60 & 23 \\
       \hline
-      semi & it & Clemscore & 4 & 50 & 49 & 17 & 15 & 15 & -- & 19 & \textbf{64} & 26 \\
-       &  & \% Played & 51 & 93 & 95 & \textbf{100} & 96 & 90 & -- & 66 & \textbf{100} & 98 \\
-       &  & \% Agreement & 13 & 62 & 59 & 20 & 19 & 20 & -- & 33 & \textbf{72} & 35 \\
-       &  & \% Optimal & 0 & 36 & 34 & 9 & 10 & 9 & -- & 12 & \textbf{48} & 8 \\
-       &  & Quality Score & 7 & 53 & 51 & 17 & 16 & 17 & -- & 29 & \textbf{64} & 26 \\
+      semi & it & Clemscore & 4 & 50 & 49 & 17 & 15 & 15 & 27 & 19 & \textbf{64} & 26 \\
+       &  & \% Played & 51 & 93 & 95 & \textbf{100} & 96 & 90 & 93 & 66 & \textbf{100} & 98 \\
+       &  & \% Agreement & 13 & 62 & 59 & 20 & 19 & 20 & 41 & 33 & \textbf{72} & 35 \\
+       &  & \% Optimal & 0 & 36 & 34 & 9 & 10 & 9 & 0 & 12 & \textbf{48} & 8 \\
+       &  & Quality Score & 7 & 53 & 51 & 17 & 16 & 17 & 29 & 29 & \textbf{64} & 26 \\
       \hline
       coop & en & Clemscore & 3 & \textbf{74} & 65 & 57 & 31 & 25 & 29 & 48 & 26 & 26 \\
        &  & \% Played & 56 & \textbf{100} & \textbf{100} & \textbf{100} & 92 & 90 & 60 & 78 & 77 & 86 \\
@@ -59,10 +53,31 @@ In this section of the report, the results of the experiments will be discussed.
       \hline
     \end{tabular}
   \end{widepage}
-  \caption{Detailed breakdown of the results for each game mode, language, and model combination across multiple metrics. The best result in each row is indicated in bold.}
+  \caption{Detailed breakdown of the results for each game mode, language, and model combination across multiple metrics. The best result in each row is indicated in bold. Note that the quality score as well as the percentages of agreements and optimal outcomes are computed only with respect to the non-aborted games.}
   \label{tab:results}
 \end{table*}
 
+GPT 4.1 emerged as the top-performing model overall, achieving the highest clemscore of 60 when averaging over all game modes and languages. It also obtained the highest rate of Pareto optimal outcomes at 40\%, as can be seen in \cref{fig:outcome}. Its high percentage of played games 96\% further indicates strong rule-following capabilities.
+
+GPT 4 was a close second with a clemscore of 59. This model reached a higher rate of agreements 76\% compared to the 67\% of GPT 4.1, however, when it reached agreement it generally reached less optimal ones, leading to only a slightly higher quality score. It also struggled more with rule following as compared to GPT 4.1.
+
+Mistral Large also performed strongly, being the best performing model for which weight are publicly available. This model excelled particularly in non-English languages, demonstrating robust multilingual negotiation skills. In fact, excluding the English benchmarks it would be the best performing model tested.
+
+o4-mini is notable for its nearly perfect rule-following, though its negotiation quality was moderate compared to the other non-reasoning models.
+
+GPT-3.5 was the worst-performing model by a large margin, with a very low clemscore of 5. It struggled significantly with rule-following, meaning only 54\% of games were played to completion, and rarely reached successful agreements. Llama 3, Gemma 3, and Mistral Small also showed poor performance. Llama 3 struggled mainly with rule following, while Gemma 3 and Mistral Small were quite bad at reaching agreements. All three of them struggled to reach optimal outcomes.
+
+Generally, models performed about the same in the cooperative mode and in the semi-competitive setting. While the cooperative game settings has very slightly higher average game quality scores, and therefore slightly higher clemscores, the rate of rule violations was identical. Note that while on average a Pareto optimal outcome is reached more often in the semi-competitive setting, 22\% against 18\% in the cooperative setting, this is likely because in the cooperative setting there is always only one optimal outcome, while there could be multiple in the semi-competitive one.
+
+Performance was generally highest in English, which is expected given the training data bias of most LLMs. However, some models showed interesting multilingual strengths. Mistral Large was a standout, achieving its best scores in German and Italian, even outperforming all other models in the semi-competitive mode, including the GPT family, in those languages. In contrast, models like Gemini 2.0 Flash and Gemma 3 saw a significant performance drop outside of English. Interestingly, also Llama 3 was substantially better at following the rules in German or Italian as compared to in English.
+
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\linewidth]{figures/outcome.pdf}
+  \caption{Percentage of games that ended with a specific game outcome during the evaluation of different models. All results for the two game modes and three languages have been averaged together for this plot.}
+  \label{fig:outcome}
+\end{figure}
 
 \subsection{Qualitative Analysis}
 

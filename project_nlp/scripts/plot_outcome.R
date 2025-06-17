@@ -69,7 +69,7 @@ summary_data <- clean_data %>%
 plot <- ggplot(summary_data, aes(y = model, x = value, fill = name)) +
     geom_col(position = "stack") +
     scale_x_reverse() +
-    scale_fill_manual(values = c("#7cae00", "#00bfc4", "#c77cff", "#f8766d")) +
+    scale_fill_manual(values = c("#97b84f", "#5eb8b9", "#c3a7ff", "#ee928d")) +
     theme_bw() +
     theme(
         text = element_text(family = "Libertinus"),
