@@ -55,7 +55,9 @@ summary_data <- clean_data %>%
 
 plot <- ggplot(summary_data, aes(y = 100 * played, x = quality)) +
     geom_point(aes(color = model), size = 3) +
-    geom_text_repel(aes(label = model), family = "Libertinus") +
+    geom_text_repel(
+        aes(label = model), family = "Libertinus", nudge_y = -0.7, box.padding = 0.4,
+    ) +
     labs(y = "% Played", x = "Quality Score") +
     guides(color = "none") +
     theme_bw() +
