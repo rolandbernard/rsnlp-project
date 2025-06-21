@@ -130,9 +130,10 @@ summary3_data <- clean_data %>%
         optimal = round(100 * optimal),
         quality = round(quality),
         requests = round(requests, 1),
+        poptimal = round(100 * optimal / success),
     ) %>%
     arrange(model) %>%
-    select(model, clemscore, played, success, optimal, quality, requests)
+    select(model, clemscore, played, success, optimal, quality, requests, poptimal)
 # This one summarizes over all game modes.
 summary4_data <- clean_data %>%
     group_by(mode) %>%
