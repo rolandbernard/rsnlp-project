@@ -103,10 +103,3 @@ The table below gives the summary results for each model, averaged over all game
 | Mistral Large | 50 | 91 | 62 | 37 | 55 | 7 |
 | Mistral Small | 22 | 90 | 30 | 8 | 24 | 5.6 |
 
-Interesting example dialogues:
-
-file:///home/roland/dev/github/rolandbernard/clemgame-dond/results/gpt-3.5-turbo-0125-t0.0--gpt-3.5-turbo-0125-t0.0/dond/0_coop_en/episode_14/transcript.html
-file:///home/roland/dev/github/rolandbernard/clemgame-dond/results/gpt-3.5-turbo-0125-t0.0--gpt-3.5-turbo-0125-t0.0/dond/0_coop_en/episode_48/transcript.html
-file:///home/roland/dev/github/rolandbernard/clemgame-dond/results/gemma-3-27b-it-t0.0--gemma-3-27b-it-t0.0/dond/0_coop_en/episode_17/transcript.html
-file:///home/roland/dev/github/rolandbernard/clemgame-dond/results/gemini-2.0-flash-001-t0.0--gemini-2.0-flash-001-t0.0/dond/0_coop_en/episode_41/transcript.html
-

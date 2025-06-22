@@ -1,0 +1,73 @@
+\begin{figure}[ht]
+  \centering
+{
+\footnotesize
+\setcounter{utterance}{1}
+\setlength{\tabcolsep}{0pt}
+\begin{supertabular}{c@{$\;$}|p{.15\linewidth}@{}p{.15\linewidth}p{.15\linewidth}p{.15\linewidth}p{.15\linewidth}p{.15\linewidth}}
+  \# & $\;$A & \multicolumn{4}{c}{Game Master} & $\;\:$B\\
+  \hline 
+
+  \theutterance \stepcounter{utterance}  
+
+    & & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.9,0.9,0.9}{%
+  \makecell[{{p{\linewidth}}}]{% 
+    \tt {\tiny [A$\langle$GM]}  
+   You are playing a cooperative negotiation game in which you have to agree on how to divide a set of items among you and another player. [...] The set of available items is: 2 socks, 2 chalks, 2 pliers. Your secret value function is: sock: 0, chalk: 0, plier: 5 [...]
+    } 
+     } 
+     } 
+   & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.8,1,0.9}{%
+  \makecell[{{p{\linewidth}}}]{% 
+    \tt {\tiny [A$\rangle$GM]}  
+   I value pliers much more than socks or chalk. I'll try to signal this and hopefully get the pliers.\\ \tt \\ \tt Message 1: I am most interested in tools.\\ \tt Message 2: Are you interested in the socks or chalk?\\ \tt Message 3: I don't have much use for socks.\\ \tt Message 4: I would be happy to take the pliers.\\ \tt Message 5: I am willing to let you have the socks and chalk.\\ \tt [Proposal: 2 plier] \\ \tt
+    } 
+     } 
+     } 
+   & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.9,0.9,0.9}{%
+  \makecell[{{p{\linewidth}}}]{% 
+    \tt {\tiny [GM$\rangle$B]}  
+   [...] Your secret value function is: sock: 2, chalk: 2, plier: 1 [..]
+    } 
+     } 
+     } 
+   & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.9,0.9,0.9}{%
+  \makecell[{{p{\linewidth}}}]{% 
+    \tt {\tiny [GM$\rangle$B]}  
+   The other player has submitted a secret proposal. It is now your turn to submit a proposal of your own.
+    } 
+     } 
+     } 
+   & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{1,0.85,0.72}{%
+  \makecell[{{p{\linewidth}}}]{% 
+    \tt {\tiny [GM$\langle$B]}  
+   [Proposal: 2 sock, 2 chalk] 
+    } 
+     } 
+     } 
+    \\ 
+
+\end{supertabular}
+}
+  \caption{Example game episode generated through self-play using the Gemini 2.0 Flash model. The game was played using the cooperative settings. We can clearly see here that the model is generating already multiple messages, and a final proposal all in a single first message. This will be interpreted as an immediate proposal by the game master implementation.}
+\end{figure}
